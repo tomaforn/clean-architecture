@@ -1,8 +1,8 @@
-﻿using CleanArchitecture.Domain.Common;
-using CleanArchitecture.Domain.ValueObjects;
+﻿using Modules.Todolist.Domain.ValueObjects;
+using Common.Domain;
 using System.Collections.Generic;
 
-namespace CleanArchitecture.Domain.Entities
+namespace Modules.Todolist.Domain.Entities
 {
     public class TodoList : AuditableEntity
     {

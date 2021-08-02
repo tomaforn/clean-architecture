@@ -1,16 +1,16 @@
-﻿using CleanArchitecture.Application.Common.Exceptions;
-using CleanArchitecture.Application.TodoItems.Commands.CreateTodoItem;
-using CleanArchitecture.Application.TodoItems.Commands.UpdateTodoItem;
-using CleanArchitecture.Application.TodoItems.Commands.UpdateTodoItemDetail;
-using CleanArchitecture.Application.TodoLists.Commands.CreateTodoList;
-using CleanArchitecture.Domain.Entities;
-using CleanArchitecture.Domain.Enums;
+﻿using Common.Application.Exceptions;
+using Modules.Todolist.Application.Commands.CreateTodoItem;
+using Modules.Todolist.Application.Commands.UpdateTodoItem;
+using Modules.Todolist.Application.Commands.UpdateTodoItemDetail;
+using Modules.Todolist.Application.Commands.CreateTodoList;
+using Modules.Todolist.Domain.Entities;
+using Modules.Todolist.Domain.Enums;
 using FluentAssertions;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using System;
 
-namespace CleanArchitecture.Application.IntegrationTests.TodoItems.Commands
+namespace Modules.Todolist.Application.IntegrationTests.TodoItems.Commands
 {
     using static Testing;
 

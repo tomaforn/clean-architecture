@@ -1,13 +1,13 @@
-﻿using CleanArchitecture.Application.Common.Interfaces;
-using CleanArchitecture.Infrastructure.Identity;
-using CleanArchitecture.Infrastructure.Persistence;
-using API;
+﻿using API;
+using Common.Application.Interfaces;
+using Common.Infrastructure.Identity;
 using MediatR;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Modules.Todolist.Infrastructure.Persistence;
 using Moq;
 using NUnit.Framework;
 using Respawn;
@@ -71,7 +71,7 @@ public class Testing
     {
         using var scope = _scopeFactory.CreateScope();
 
-        var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
+        var context = scope.ServiceProvider.GetService<TodolistDbContext>();
 
         context.Database.Migrate();
     }
@@ -140,7 +140,7 @@ public class Testing
     {
         using var scope = _scopeFactory.CreateScope();
 
-        var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
+        var context = scope.ServiceProvider.GetService<TodolistDbContext>();
 
         return await context.FindAsync<TEntity>(keyValues);
     }
@@ -150,7 +150,7 @@ public class Testing
     {
         using var scope = _scopeFactory.CreateScope();
 
-        var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
+        var context = scope.ServiceProvider.GetService<TodolistDbContext>();
 
         context.Add(entity);
 
@@ -161,7 +161,7 @@ public class Testing
     {
         using var scope = _scopeFactory.CreateScope();
 
-        var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
+        var context = scope.ServiceProvider.GetService<TodolistDbContext>();
 
         return await context.Set<TEntity>().CountAsync();
     }

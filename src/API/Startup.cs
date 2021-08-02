@@ -1,9 +1,7 @@
 using API.Filters;
 using API.Services;
-using CleanArchitecture.Application;
-using CleanArchitecture.Application.Common.Interfaces;
-using CleanArchitecture.Infrastructure;
-using CleanArchitecture.Infrastructure.Persistence;
+using Common.Application.Interfaces;
+using Common.Infrastructure;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -11,6 +9,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Modules.Todolist.Application;
+using Modules.Todolist.Infrastructure;
+using Modules.Todolist.Infrastructure.Persistence;
 using NSwag;
 using NSwag.Generation.Processors.Security;
 using System.Linq;
@@ -29,9 +30,7 @@ namespace API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
-            services.AddApplication();
-            services.AddInfrastructure(Configuration);
+            RegisterModules(services);
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 
@@ -40,7 +39,7 @@ namespace API
             services.AddHttpContextAccessor();
 
             services.AddHealthChecks()
-                .AddDbContextCheck<ApplicationDbContext>();
+                .AddDbContextCheck<TodolistDbContext>();
 
             services.AddControllersWithViews(options =>
                 options.Filters.Add<ApiExceptionFilterAttribute>())
@@ -68,6 +67,16 @@ namespace API
                 configure.OperationProcessors.Add(new AspNetCoreOperationSecurityScopeProcessor("JWT"));
             });
         }
+
+        private void RegisterModules(IServiceCollection services)
+        {
+            services.AddCommonApplication();
+            services.AddCommonInfrastructure(Configuration);
+
+            services.AddTodolistApplication();
+            services.AddTodolistInfrastructure(Configuration);
+        }
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

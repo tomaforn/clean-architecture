@@ -381,7 +381,7 @@
         "tags": [
           "TodoLists"
         ],
-        "operationId": "TodoLists_Delete",
+        "operationId": "TodoLists_DeleteAPA",
         "parameters": [
           {
             "name": "id",

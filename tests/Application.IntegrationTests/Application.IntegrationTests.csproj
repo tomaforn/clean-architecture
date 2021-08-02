@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <RootNamespace>CleanArchitecture.Application.IntegrationTests</RootNamespace>
-    <AssemblyName>CleanArchitecture.Application.IntegrationTests</AssemblyName>
+    <RootNamespace>Modules.Todolist.Application.IntegrationTests</RootNamespace>
+    <AssemblyName>Modules.Todolist.Application.IntegrationTests</AssemblyName>
     
     <IsPackable>false</IsPackable>
   </PropertyGroup>

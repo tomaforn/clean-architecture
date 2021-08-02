@@ -1,9 +1,9 @@
-﻿using CleanArchitecture.Domain.Common;
-using CleanArchitecture.Domain.Exceptions;
+﻿using Modules.Todolist.Domain.Exceptions;
+using Common.Domain;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace CleanArchitecture.Domain.ValueObjects
+namespace Modules.Todolist.Domain.ValueObjects
 {
     public class Colour : ValueObject
     {

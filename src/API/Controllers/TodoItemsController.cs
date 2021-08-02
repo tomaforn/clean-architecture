@@ -1,10 +1,10 @@
-﻿using CleanArchitecture.Application.Common.Models;
-using CleanArchitecture.Application.TodoItems.Commands.CreateTodoItem;
-using CleanArchitecture.Application.TodoItems.Commands.DeleteTodoItem;
-using CleanArchitecture.Application.TodoItems.Commands.UpdateTodoItem;
-using CleanArchitecture.Application.TodoItems.Commands.UpdateTodoItemDetail;
-using CleanArchitecture.Application.TodoItems.Queries.GetTodoItemsWithPagination;
-using CleanArchitecture.Application.TodoLists.Queries.GetTodos;
+﻿using Common.Application.Models;
+using Modules.Todolist.Application.Commands.CreateTodoItem;
+using Modules.Todolist.Application.Commands.DeleteTodoItem;
+using Modules.Todolist.Application.Commands.UpdateTodoItem;
+using Modules.Todolist.Application.Commands.UpdateTodoItemDetail;
+using Modules.Todolist.Application.Queries.GetTodoItemsWithPagination;
+using Modules.Todolist.Application.Queries.GetTodos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;

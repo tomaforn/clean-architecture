@@ -1,56 +1,36 @@
-﻿using CleanArchitecture.Application.Common.Interfaces;
-using CleanArchitecture.Infrastructure.Files;
-using CleanArchitecture.Infrastructure.Identity;
-using CleanArchitecture.Infrastructure.Persistence;
-using CleanArchitecture.Infrastructure.Services;
+﻿using Common.Application.Interfaces;
+using Common.Infrastructure.Identity;
+using Common.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Modules.Todolist.Application.Interfaces;
+using Modules.Todolist.Infrastructure.Files;
+using Modules.Todolist.Infrastructure.Persistence;
 
-namespace CleanArchitecture.Infrastructure
+namespace Modules.Todolist.Infrastructure
 {
     public static class DependencyInjection
     {
-        public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddTodolistInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
             if (configuration.GetValue<bool>("UseInMemoryDatabase"))
             {
-                services.AddDbContext<ApplicationDbContext>(options =>
+                services.AddDbContext<TodolistDbContext>(options =>
                     options.UseInMemoryDatabase("CleanArchitectureDb"));
             }
             else
             {
-                services.AddDbContext<ApplicationDbContext>(options =>
+                services.AddDbContext<TodolistDbContext>(options =>
                     options.UseSqlServer(
                         configuration.GetConnectionString("DefaultConnection"),
-                        b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
+                        b => b.MigrationsAssembly(typeof(TodolistDbContext).Assembly.FullName)));
             }
 
-            services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
-
-            services.AddScoped<IDomainEventService, DomainEventService>();
-
-            services
-                .AddDefaultIdentity<ApplicationUser>()
-                .AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
-
-            services.AddIdentityServer()
-                .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
-
-            services.AddTransient<IDateTime, DateTimeService>();
-            services.AddTransient<IIdentityService, IdentityService>();
+            services.AddScoped<ITodolistDbContext>(provider => provider.GetService<TodolistDbContext>());            
             services.AddTransient<ICsvFileBuilder, CsvFileBuilder>();
-
-            services.AddAuthentication()
-                .AddIdentityServerJwt();
-
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy("CanPurge", policy => policy.RequireRole("Administrator"));
-            });
 
             return services;
         }

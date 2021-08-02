@@ -1,4 +1,4 @@
-﻿using CleanArchitecture.Application.Common.Interfaces;
+﻿using Common.Application.Interfaces;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 

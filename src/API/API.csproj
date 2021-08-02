@@ -24,8 +24,8 @@
 	<RemoveDir Directories="$(OutDir)References" />
   </Target>
   <ItemGroup>
-    <ProjectReference Include="..\Application\Application.csproj" />
-    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
+    <ProjectReference Include="..\Application\Todolist.Application.csproj" />
+    <ProjectReference Include="..\Infrastructure\Todolist.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

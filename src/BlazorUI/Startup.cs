@@ -1,5 +1,6 @@
 using BlazorUI.API;
 using BlazorUI.Data;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
@@ -35,6 +36,35 @@ namespace BlazorUI
             services.AddHttpClient<ITodoItemsClient,TodoItemsClient>(client => client.BaseAddress = new Uri(Configuration.GetValue<string>("ApiUri")));
             services.AddHttpClient<ITodoListsClient, TodoListsClient>(client => client.BaseAddress = new Uri(Configuration.GetValue<string>("ApiUri")));
             services.AddHttpClient<IWeatherForecastClient, WeatherForecastClient>(client => client.BaseAddress = new Uri(Configuration.GetValue<string>("ApiUri")));
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = "Cookies";
+                options.DefaultChallengeScheme = "oidc";
+            })
+           .AddCookie("Cookies")
+           .AddOpenIdConnect("oidc", options =>
+           {
+               //options.Authority = Configuration.GetValue<string>("ApiUri");
+               //options.ClientId = "BlazorUI";
+               //options.ClientSecret = "secret";
+               options.Authority = "https://demo.identityserver.io/";
+               options.ClientId = "interactive.confidential.short"; // 75 seconds
+               options.ClientSecret = "secret";
+               options.ResponseType = "code";
+               options.SaveTokens = true;
+               options.GetClaimsFromUserInfoEndpoint = true;
+
+               options.Events = new OpenIdConnectEvents
+               {
+                   OnAccessDenied = context =>
+                   {
+                       context.HandleResponse();
+                       context.Response.Redirect("/");
+                       return Task.CompletedTask;
+                   }
+               };
+           });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,7 +83,7 @@ namespace BlazorUI
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseAuthentication();
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>

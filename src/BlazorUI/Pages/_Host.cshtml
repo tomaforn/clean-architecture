@@ -1,4 +1,7 @@
-﻿@page "/"
+﻿@page  "/{handler?}"
+@model _HostAuthModel
+@using Microsoft.AspNetCore.Authorization
+@attribute [AllowAnonymous]
 @namespace BlazorUI.Pages
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
@@ -17,19 +20,31 @@
     <link href="BlazorUI.styles.css" rel="stylesheet" />
 </head>
 <body>
-    <component type="typeof(App)" render-mode="ServerPrerendered" />
+    @if (User.Identity.IsAuthenticated)
+    {
+        <component type="typeof(App)" render-mode="ServerPrerendered" />
 
-    <div id="blazor-error-ui">
-        <environment include="Staging,Production">
-            An error has occurred. This application may no longer respond until reloaded.
-        </environment>
-        <environment include="Development">
-            An unhandled exception has occurred. See browser dev tools for details.
-        </environment>
-        <a href="" class="reload">Reload</a>
-        <a class="dismiss">🗙</a>
-    </div>
+        <div id="blazor-error-ui">
+            <environment include="Staging,Production">
+                An error has occurred. This application may no longer respond until reloaded.
+            </environment>
+            <environment include="Development">
+                An unhandled exception has occurred. See browser dev tools for details.
+            </environment>
+            <a href="" class="reload">Reload</a>
+            <a class="dismiss">🗙</a>
+        </div>
 
-    <script src="_framework/blazor.server.js"></script>
+        <script src="_framework/blazor.server.js"></script>
+    }
+    else
+    {
+        <h3>You are not logged into this application.</h3>
+
+        <p>
+            <a href="/Login">Login</a>
+        </p>
+    }
+
 </body>
 </html>

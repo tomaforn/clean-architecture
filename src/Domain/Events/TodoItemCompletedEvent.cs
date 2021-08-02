@@ -1,7 +1,7 @@
-﻿using CleanArchitecture.Domain.Common;
-using CleanArchitecture.Domain.Entities;
+﻿using Modules.Todolist.Domain.Entities;
+using Common.Domain;
 
-namespace CleanArchitecture.Domain.Events
+namespace Modules.Todolist.Domain.Events
 {
     public class TodoItemCompletedEvent : DomainEvent
     {

@@ -1,8 +1,8 @@
-﻿using CleanArchitecture.Application.TodoLists.Commands.CreateTodoList;
-using CleanArchitecture.Application.TodoLists.Commands.DeleteTodoList;
-using CleanArchitecture.Application.TodoLists.Commands.UpdateTodoList;
-using CleanArchitecture.Application.TodoLists.Queries.ExportTodos;
-using CleanArchitecture.Application.TodoLists.Queries.GetTodos;
+﻿using Modules.Todolist.Application.Commands.CreateTodoList;
+using Modules.Todolist.Application.Commands.DeleteTodoList;
+using Modules.Todolist.Application.Commands.UpdateTodoList;
+using Modules.Todolist.Application.Queries.ExportTodos;
+using Modules.Todolist.Application.Queries.GetTodos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -46,7 +46,7 @@ namespace API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(int id)
+        public async Task<ActionResult> DeleteAPA(int id)
         {
             await Mediator.Send(new DeleteTodoListCommand { Id = id });
 

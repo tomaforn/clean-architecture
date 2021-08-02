@@ -1,4 +1,4 @@
-﻿namespace CleanArchitecture.Domain.Enums
+﻿namespace Modules.Todolist.Domain.Enums
 {
     public enum PriorityLevel
     {
