@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Common.Application.Models
+namespace Modules.User.Application.Shared.Models
 {
     public class Result
     {

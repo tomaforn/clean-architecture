@@ -8,6 +8,7 @@ using FluentAssertions;
 using NUnit.Framework;
 using System;
 using System.Threading.Tasks;
+using Modules.User.Application.Exceptions;
 
 namespace Modules.Todolist.Application.IntegrationTests.TodoLists.Commands
 {

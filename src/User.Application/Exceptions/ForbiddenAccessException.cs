@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Common.Application.Exceptions
+namespace Modules.User.Application.Exceptions
 {
     public class ForbiddenAccessException : Exception
     {

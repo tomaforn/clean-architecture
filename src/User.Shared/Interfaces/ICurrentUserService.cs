@@ -1,4 +1,4 @@
-﻿namespace Common.Application.Interfaces
+﻿namespace Modules.User.Application.Shared.Interfaces
 {
     public interface ICurrentUserService
     {

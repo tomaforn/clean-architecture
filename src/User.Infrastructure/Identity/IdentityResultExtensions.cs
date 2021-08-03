@@ -1,8 +1,8 @@
-﻿using Common.Application.Models;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
+using Modules.User.Application.Shared.Models;
 using System.Linq;
 
-namespace Common.Infrastructure.Identity
+namespace Models.User.Infrastructure.Identity
 {
     public static class IdentityResultExtensions
     {

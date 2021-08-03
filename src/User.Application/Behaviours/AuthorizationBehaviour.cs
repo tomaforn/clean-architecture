@@ -2,13 +2,16 @@
 using Common.Application.Interfaces;
 using Common.Application.Security;
 using MediatR;
+using Modules.User.Application.Exceptions;
+using Modules.User.Application.Shared;
+using Modules.User.Application.Shared.Interfaces;
 using System;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Common.Application.Behaviours
+namespace Modules.User.Application.Behaviours
 {
     public class AuthorizationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     {

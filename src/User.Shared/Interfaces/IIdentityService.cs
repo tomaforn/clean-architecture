@@ -1,7 +1,7 @@
-﻿using Common.Application.Models;
+﻿using Modules.User.Application.Shared.Models;
 using System.Threading.Tasks;
 
-namespace Common.Application.Interfaces
+namespace Modules.User.Application.Shared.Interfaces
 {
     public interface IIdentityService
     {

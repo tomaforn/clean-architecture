@@ -9,9 +9,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Modles.User.Infrastructure;
 using Modules.Todolist.Application;
 using Modules.Todolist.Infrastructure;
 using Modules.Todolist.Infrastructure.Persistence;
+using Modules.User.Application;
+using Modules.User.Application.Shared;
+using Modules.User.Application.Shared.Interfaces;
 using NSwag;
 using NSwag.Generation.Processors.Security;
 using System.Linq;
@@ -75,6 +79,9 @@ namespace API
 
             services.AddTodolistApplication();
             services.AddTodolistInfrastructure(Configuration);
+
+            services.AddUserApplication();
+            services.AddUserInfrastructure(Configuration);
         }
 
 
