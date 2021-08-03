@@ -18,14 +18,17 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Todolist.Application\Todolist.Application.csproj" />
+    <ProjectReference Include="..\Todolist.Infrastructure\Todolist.Infrastructure.csproj" />
+    <ProjectReference Include="..\User.Application\User.Application.csproj" />
+    <ProjectReference Include="..\User.Infrastructure\User.Infrastructure.csproj" />
+  </ItemGroup>
   <Target Name="NSwag" AfterTargets="Build" Condition="'$(Configuration)' == 'Debug'">
     <Copy SourceFiles="@(Reference)" DestinationFolder="$(OutDir)References" />
 	<Exec Command="$(NSwagExe_Net50) run /variables:Configuration=$(Configuration)" />
 	<RemoveDir Directories="$(OutDir)References" />
   </Target>
-  <ItemGroup>
-    <ProjectReference Include="..\Application\Todolist.Application.csproj" />
-    <ProjectReference Include="..\Infrastructure\Todolist.Infrastructure.csproj" />
-  </ItemGroup>
 
 </Project>
