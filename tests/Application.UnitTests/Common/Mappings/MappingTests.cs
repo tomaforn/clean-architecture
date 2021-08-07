@@ -4,7 +4,10 @@ using Modules.Todolist.Application.Queries.GetTodos;
 using Modules.Todolist.Domain.Entities;
 using NUnit.Framework;
 using System;
+using System.Linq;
+using System.Reflection;
 using System.Runtime.Serialization;
+using Todolist.Application.Mappings;
 
 namespace Modules.Todolist.Application.UnitTests.Common.Mappings
 {
@@ -17,7 +20,7 @@ namespace Modules.Todolist.Application.UnitTests.Common.Mappings
         {
             _configuration = new MapperConfiguration(cfg =>
             {
-                cfg.AddProfile<MappingProfile>();
+                cfg.AddProfile<TodoListMappingProfile>();
             });
 
             _mapper = _configuration.CreateMapper();
@@ -46,6 +49,17 @@ namespace Modules.Todolist.Application.UnitTests.Common.Mappings
 
             // Type without parameterless constructor
             return FormatterServices.GetUninitializedObject(type);
+        }
+
+        private String GetAssemblyNameContainingType(String typeName)
+        {
+            foreach (Assembly currentassembly in AppDomain.CurrentDomain.GetAssemblies())
+            {
+                Type t = currentassembly.GetType(typeName, false, true);
+                if (t != null) { return currentassembly.FullName; }
+            }
+
+            return "not found";
         }
     }
 }

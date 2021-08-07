@@ -1,7 +1,10 @@
-﻿using Common.Application.Behaviours;
+﻿using AutoMapper;
+using Common.Application.Behaviours;
+using Common.Application.Mappings;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using System.Reflection;
 
 namespace Modules.Todolist.Application
@@ -10,7 +13,15 @@ namespace Modules.Todolist.Application
     {
         public static IServiceCollection AddCommonApplication(this IServiceCollection services)
         {
-            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            //var mapperConfig = new MapperConfiguration(cfg =>
+            //{
+                //cfg.AddProfile<MappingProfile>();
+            //});
+
+            //services.AddAutoMapper(typeof(MappingProfile));
+            
+            //mapperConfig, Assembly.GetExecutingAssembly());
+            //services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             services.AddMediatR(Assembly.GetExecutingAssembly());
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(UnhandledExceptionBehaviour<,>));            

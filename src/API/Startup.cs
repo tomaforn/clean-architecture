@@ -18,7 +18,9 @@ using Modules.User.Application.Shared;
 using Modules.User.Application.Shared.Interfaces;
 using NSwag;
 using NSwag.Generation.Processors.Security;
+using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace API
 {

@@ -1,8 +1,10 @@
-﻿using Common.Application.Behaviours;
+﻿using AutoMapper;
+using Common.Application.Behaviours;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
+using Todolist.Application.Mappings;
 
 namespace Modules.Todolist.Application
 {
@@ -10,7 +12,7 @@ namespace Modules.Todolist.Application
     {
         public static IServiceCollection AddTodolistApplication(this IServiceCollection services)
         {
-            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            services.AddAutoMapper(c => c.AddProfile<TodoListMappingProfile>(), Assembly.GetExecutingAssembly());
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             services.AddMediatR(Assembly.GetExecutingAssembly());
 

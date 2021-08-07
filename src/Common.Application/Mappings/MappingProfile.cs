@@ -12,6 +12,11 @@ namespace Common.Application.Mappings
             ApplyMappingsFromAssembly(Assembly.GetExecutingAssembly());
         }
 
+        public MappingProfile(Assembly assembly)
+        {
+            ApplyMappingsFromAssembly(assembly);
+        }
+
         private void ApplyMappingsFromAssembly(Assembly assembly)
         {
             var types = assembly.GetExportedTypes()
@@ -23,11 +28,10 @@ namespace Common.Application.Mappings
             {
                 var instance = Activator.CreateInstance(type);
 
-                var methodInfo = type.GetMethod("Mapping") 
+                var methodInfo = type.GetMethod("Mapping")
                     ?? type.GetInterface("IMapFrom`1").GetMethod("Mapping");
                 
                 methodInfo?.Invoke(instance, new object[] { this });
-
             }
         }
     }
