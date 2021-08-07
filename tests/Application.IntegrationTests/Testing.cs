@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Models.User.Infrastructure.Identity;
+using Models.User.Infrastructure.Persistence;
 using Modules.Todolist.Infrastructure.Persistence;
 using Modules.User.Application.Shared.Interfaces;
 using Moq;
@@ -73,8 +74,10 @@ public class Testing
         using var scope = _scopeFactory.CreateScope();
 
         var context = scope.ServiceProvider.GetService<TodolistDbContext>();
-
         context.Database.Migrate();
+
+        var userContext = scope.ServiceProvider.GetService<UserDbContext>();
+        userContext.Database.Migrate();
     }
 
     public static async Task<TResponse> SendAsync<TResponse>(IRequest<TResponse> request)
