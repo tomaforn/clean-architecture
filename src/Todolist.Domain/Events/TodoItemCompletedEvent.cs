@@ -1,5 +1,5 @@
 ﻿using Modules.Todolist.Domain.Entities;
-using Common.Domain;
+using Shared.Domain;
 
 namespace Modules.Todolist.Domain.Events
 {

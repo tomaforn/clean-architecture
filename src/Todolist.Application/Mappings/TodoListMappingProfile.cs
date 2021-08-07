@@ -1,10 +1,5 @@
-﻿using Common.Application.Mappings;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Shared.Application.Mappings;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Todolist.Application.Mappings
 {

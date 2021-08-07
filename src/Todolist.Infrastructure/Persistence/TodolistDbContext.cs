@@ -1,4 +1,4 @@
-﻿using Common.Application.Interfaces;
+﻿using Shared.Application.Interfaces;
 using Common.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Modules.Todolist.Application.Interfaces;

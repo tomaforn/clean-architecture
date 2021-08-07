@@ -1,5 +1,4 @@
-﻿using Common.Application.Interfaces;
-using Modules.Todolist.Domain.Entities;
+﻿using Modules.Todolist.Domain.Entities;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;

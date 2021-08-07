@@ -1,12 +1,10 @@
-﻿using Common.Application.Behaviours;
-using Common.Application.Interfaces;
+﻿using Shared.Application.Behaviours;
 using Modules.Todolist.Application.Commands.CreateTodoItem;
 using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
 using System.Threading;
 using System.Threading.Tasks;
-using Modules.User.Application.Shared;
 using Modules.User.Application.Shared.Interfaces;
 
 namespace Modules.Todolist.Application.UnitTests.Common.Behaviours

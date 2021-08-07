@@ -1,6 +1,5 @@
 ﻿using Modules.Todolist.Application.Interfaces;
-using Common.Application.Interfaces;
-using Common.Application.Security;
+using Shared.Application.Security;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;

@@ -1,5 +1,4 @@
-﻿using Common.Application.Interfaces;
-using Modules.Todolist.Application.Queries.ExportTodos;
+﻿using Modules.Todolist.Application.Queries.ExportTodos;
 using Modules.Todolist.Infrastructure.Files.Maps;
 using CsvHelper;
 using System.Collections.Generic;

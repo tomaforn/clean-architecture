@@ -1,6 +1,4 @@
-﻿using Common.Application.Interfaces;
-using Microsoft.AspNetCore.Http;
-using Modules.User.Application.Shared;
+﻿using Microsoft.AspNetCore.Http;
 using Modules.User.Application.Shared.Interfaces;
 using System.Security.Claims;
 

@@ -1,4 +1,4 @@
-﻿using Common.Application.Exceptions;
+﻿using Shared.Application.Exceptions;
 using Modules.Todolist.Application.Commands.CreateTodoItem;
 using Modules.Todolist.Application.Commands.DeleteTodoItem;
 using Modules.Todolist.Application.Commands.CreateTodoList;

@@ -1,5 +1,4 @@
-﻿using Common.Application.Exceptions;
-using Common.Application.Interfaces;
+﻿using Shared.Application.Exceptions;
 using Modules.Todolist.Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -7,7 +6,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Modules.Todolist.Application.Interfaces;
-using Common.Domain;
 
 namespace Modules.Todolist.Application.Commands.DeleteTodoList
 {

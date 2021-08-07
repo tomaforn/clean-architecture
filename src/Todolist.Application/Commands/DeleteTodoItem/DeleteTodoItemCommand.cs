@@ -1,5 +1,4 @@
-﻿using Common.Application.Exceptions;
-using Common.Domain;
+﻿using Shared.Application.Exceptions;
 using Modules.Todolist.Domain.Entities;
 using MediatR;
 using System.Threading;

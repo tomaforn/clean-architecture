@@ -1,4 +1,4 @@
-﻿using Common.Application.Exceptions;
+﻿using Shared.Application.Exceptions;
 using FluentAssertions;
 using FluentValidation.Results;
 using NUnit.Framework;

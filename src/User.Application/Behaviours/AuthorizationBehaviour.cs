@@ -1,9 +1,6 @@
-﻿using Common.Application.Exceptions;
-using Common.Application.Interfaces;
-using Common.Application.Security;
+﻿using Shared.Application.Security;
 using MediatR;
 using Modules.User.Application.Exceptions;
-using Modules.User.Application.Shared;
 using Modules.User.Application.Shared.Interfaces;
 using System;
 using System.Linq;

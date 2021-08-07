@@ -1,5 +1,4 @@
-﻿using Common.Application.Exceptions;
-using Common.Application.Interfaces;
+﻿using Shared.Application.Exceptions;
 using Modules.Todolist.Domain.Entities;
 using Modules.Todolist.Domain.Enums;
 using MediatR;

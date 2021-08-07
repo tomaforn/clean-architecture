@@ -1,10 +1,9 @@
-﻿using Common.Application.Models;
+﻿using Shared.Application.Models;
 using Modules.Todolist.Domain.Events;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using System.Threading;
 using System.Threading.Tasks;
-using Common.Domain;
 
 namespace Modules.Todolist.Application.TodoItems.EventHandlers
 {

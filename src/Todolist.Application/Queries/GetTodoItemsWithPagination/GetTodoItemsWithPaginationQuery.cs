@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using Common.Application.Interfaces;
-using Common.Application.Mappings;
-using Common.Application.Models;
+using Shared.Application.Mappings;
+using Shared.Application.Models;
 using Modules.Todolist.Application.Queries.GetTodos;
 using MediatR;
 using System.Linq;

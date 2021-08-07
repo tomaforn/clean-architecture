@@ -1,5 +1,4 @@
 ﻿using Modules.Todolist.Application.Interfaces;
-using Common.Application.Interfaces;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;

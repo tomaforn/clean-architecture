@@ -1,5 +1,4 @@
-﻿using Common.Application.Models;
-using Common.Domain;
+﻿using Shared.Application.Models;
 using Modules.Todolist.Domain.Events;
 using MediatR;
 using Microsoft.Extensions.Logging;

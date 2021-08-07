@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
-using Common.Application.Mappings;
 using Modules.Todolist.Application.Queries.GetTodos;
 using Modules.Todolist.Domain.Entities;
 using NUnit.Framework;
 using System;
-using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
 using Todolist.Application.Mappings;

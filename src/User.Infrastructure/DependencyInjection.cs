@@ -1,7 +1,6 @@
-﻿using Common.Application.Interfaces;
+﻿using Shared.Application.Interfaces;
 using Common.Infrastructure.Identity;
 using Common.Infrastructure.Services;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;

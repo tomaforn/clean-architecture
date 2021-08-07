@@ -1,4 +1,4 @@
-﻿using Common.Application.Exceptions;
+﻿using Shared.Application.Exceptions;
 using Modules.Todolist.Application.Commands.CreateTodoList;
 using Modules.Todolist.Application.Commands.UpdateTodoList;
 using Modules.Todolist.Domain.Entities;

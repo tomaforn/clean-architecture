@@ -1,5 +1,4 @@
-﻿using Common.Domain;
-using Modules.Todolist.Domain.Entities;
+﻿using Modules.Todolist.Domain.Entities;
 using Modules.Todolist.Domain.Events;
 using MediatR;
 using System.Threading;

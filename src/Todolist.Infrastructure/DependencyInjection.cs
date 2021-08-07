@@ -1,9 +1,4 @@
-﻿using Common.Application.Interfaces;
-using Common.Infrastructure.Identity;
-using Common.Infrastructure.Services;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Modules.Todolist.Application.Interfaces;

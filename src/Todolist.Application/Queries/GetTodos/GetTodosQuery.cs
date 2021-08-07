@@ -1,7 +1,5 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using Common.Application.Interfaces;
-using Common.Application.Security;
 using Modules.Todolist.Domain.Enums;
 using MediatR;
 using Microsoft.EntityFrameworkCore;

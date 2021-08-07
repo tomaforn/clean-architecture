@@ -1,5 +1,5 @@
 ﻿using Modules.Todolist.Domain.ValueObjects;
-using Common.Domain;
+using Shared.Domain;
 using System.Collections.Generic;
 
 namespace Modules.Todolist.Domain.Entities

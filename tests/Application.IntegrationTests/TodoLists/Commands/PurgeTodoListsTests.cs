@@ -1,8 +1,6 @@
-﻿using Common.Application.Exceptions;
-using Common.Application.Security;
+﻿using Shared.Application.Security;
 using Modules.Todolist.Application.Commands.CreateTodoList;
 using Modules.Todolist.Application.Commands.PurgeTodoLists;
-using Modules.Todolist.Application.Queries.ExportTodos;
 using Modules.Todolist.Domain.Entities;
 using FluentAssertions;
 using NUnit.Framework;
