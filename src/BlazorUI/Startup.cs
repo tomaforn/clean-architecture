@@ -1,4 +1,5 @@
-using BlazorUI.API;
+using ApiClient;
+using BlazorUI.Services;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -6,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
+using System.IdentityModel.Tokens.Jwt;
 using System.Threading.Tasks;
 
 namespace BlazorUI
@@ -24,41 +26,50 @@ namespace BlazorUI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages()
-                .AddNewtonsoftJson();
+                    .AddNewtonsoftJson();
+
+            services.AddScoped<TokenProvider>();
+            services.AddScoped<ICurrentUserService, CurrentUserService>();
+            services.AddHttpContextAccessor();
+
+            RegisterApiClients(services);
+
             services.AddServerSideBlazor();
 
-            services.AddHttpClient<ITodoItemsClient,TodoItemsClient>(client => client.BaseAddress = new Uri(Configuration.GetValue<string>("ApiUri")));
-            services.AddHttpClient<ITodoListsClient, TodoListsClient>(client => client.BaseAddress = new Uri(Configuration.GetValue<string>("ApiUri")));
-            services.AddHttpClient<IWeatherForecastClient, WeatherForecastClient>(client => client.BaseAddress = new Uri(Configuration.GetValue<string>("ApiUri")));
+            JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
 
             services.AddAuthentication(options =>
             {
                 options.DefaultScheme = "Cookies";
                 options.DefaultChallengeScheme = "oidc";
             })
-           .AddCookie("Cookies")
-           .AddOpenIdConnect("oidc", options =>
-           {
-               //options.Authority = Configuration.GetValue<string>("ApiUri");
-               //options.ClientId = "BlazorUI";
-               //options.ClientSecret = "secret";
-               options.Authority = "https://demo.identityserver.io/";
-               options.ClientId = "interactive.confidential.short"; // 75 seconds
-               options.ClientSecret = "secret";
-               options.ResponseType = "code";
-               options.SaveTokens = true;
-               options.GetClaimsFromUserInfoEndpoint = true;
+            .AddCookie("Cookies")
+            .AddOpenIdConnect("oidc", options =>
+            {
+                options.Authority = "https://localhost:5001";
 
-               options.Events = new OpenIdConnectEvents
-               {
-                   OnAccessDenied = context =>
-                   {
-                       context.HandleResponse();
-                       context.Response.Redirect("/");
-                       return Task.CompletedTask;
-                   }
-               };
-           });
+                options.ClientId = "blazor";
+                options.ClientSecret = "secret";
+                options.ResponseType = "code";
+
+                options.SaveTokens = true;
+
+                options.Scope.Add("api1");
+                options.Scope.Add("offline_access");
+
+                options.GetClaimsFromUserInfoEndpoint = true;
+
+                options.Events = new OpenIdConnectEvents
+                {
+                    OnAccessDenied = context =>
+                    {
+                        context.HandleResponse();
+                        context.Response.Redirect("/");
+                        return Task.CompletedTask;
+                    }
+                };
+            });
+           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -85,6 +96,33 @@ namespace BlazorUI
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
             });
+        }
+
+        private void RegisterApiClients(IServiceCollection services)
+        {
+            services.AddHttpClient<ITodoItemsClient, TodoItemsClient>(client => client.BaseAddress = new Uri(Configuration.GetValue<string>("ApiUri")));
+            services.AddHttpClient<ITodoListsClient, TodoListsClient>(client => client.BaseAddress = new Uri(Configuration.GetValue<string>("ApiUri")));
+            services.AddHttpClient<IWeatherForecastClient, WeatherForecastClient>(client => client.BaseAddress = new Uri(Configuration.GetValue<string>("ApiUri")));
+
+            //Funkar inte att loop-regga alla?
+            /*services.AddHttpClient("api", (client) =>
+            {
+                client.BaseAddress = new Uri(Configuration.GetValue<string>("ApiUri"));
+            });
+
+            var allTypes = Assembly.GetExecutingAssembly().GetTypes();
+            var interfaceTypes = allTypes.Where(type => type.IsInterface && type.Namespace.Equals("ApiClient") && type.Name.EndsWith("Client"));
+            foreach (var interfaceType in interfaceTypes)
+            {
+                var implementations = allTypes.Where(p => interfaceType.IsAssignableFrom(p));
+                implementations.ToList().ForEach(i => {
+                    services.AddScoped(interfaceType, provider => {
+                        var clientFactory = provider.GetRequiredService<IHttpClientFactory>();
+                        var httpClient = clientFactory.CreateClient("api");
+                        return Activator.CreateInstance(i, httpClient);
+                    });
+                });
+            }*/
         }
     }
 }

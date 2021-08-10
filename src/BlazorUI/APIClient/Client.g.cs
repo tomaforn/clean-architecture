@@ -12,7 +12,7 @@
 #pragma warning disable 8073 // Disable "CS8073 The result of the expression is always 'false' since a value of type 'T' is never equal to 'null' of type 'T?'"
 #pragma warning disable 3016 // Disable "CS3016 Arrays as attribute arguments is not CLS-compliant"
 
-namespace BlazorUI.API
+namespace ApiClient
 {
     using System = global::System;
 
@@ -57,12 +57,12 @@ namespace BlazorUI.API
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.13.2.0 (NJsonSchema v10.5.2.0 (Newtonsoft.Json v12.0.0.0))")]
-    public partial class TodoItemsClient : ITodoItemsClient
+    public partial class TodoItemsClient : ClientBase, ITodoItemsClient
     {
         private System.Net.Http.HttpClient _httpClient;
         private System.Lazy<Newtonsoft.Json.JsonSerializerSettings> _settings;
     
-        public TodoItemsClient(System.Net.Http.HttpClient httpClient)
+        public TodoItemsClient(TokenProvider configuration, System.Net.Http.HttpClient httpClient) : base(configuration)
         {
             _httpClient = httpClient;
             _settings = new System.Lazy<Newtonsoft.Json.JsonSerializerSettings>(CreateSerializerSettings);
@@ -113,7 +113,7 @@ namespace BlazorUI.API
             var disposeClient_ = false;
             try
             {
-                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                using (var request_ = await CreateHttpRequestMessageAsync(cancellationToken).ConfigureAwait(false))
                 {
                     request_.Method = new System.Net.Http.HttpMethod("GET");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
@@ -188,7 +188,7 @@ namespace BlazorUI.API
             var disposeClient_ = false;
             try
             {
-                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                using (var request_ = await CreateHttpRequestMessageAsync(cancellationToken).ConfigureAwait(false))
                 {
                     var content_ = new System.Net.Http.StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(command, _settings.Value));
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
@@ -270,7 +270,7 @@ namespace BlazorUI.API
             var disposeClient_ = false;
             try
             {
-                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                using (var request_ = await CreateHttpRequestMessageAsync(cancellationToken).ConfigureAwait(false))
                 {
                     var content_ = new System.Net.Http.StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(command, _settings.Value));
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
@@ -347,7 +347,7 @@ namespace BlazorUI.API
             var disposeClient_ = false;
             try
             {
-                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                using (var request_ = await CreateHttpRequestMessageAsync(cancellationToken).ConfigureAwait(false))
                 {
                     request_.Method = new System.Net.Http.HttpMethod("DELETE");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/octet-stream"));
@@ -425,7 +425,7 @@ namespace BlazorUI.API
             var disposeClient_ = false;
             try
             {
-                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                using (var request_ = await CreateHttpRequestMessageAsync(cancellationToken).ConfigureAwait(false))
                 {
                     var content_ = new System.Net.Http.StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(command, _settings.Value));
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
@@ -625,12 +625,12 @@ namespace BlazorUI.API
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.13.2.0 (NJsonSchema v10.5.2.0 (Newtonsoft.Json v12.0.0.0))")]
-    public partial class TodoListsClient : ITodoListsClient
+    public partial class TodoListsClient : ClientBase, ITodoListsClient
     {
         private System.Net.Http.HttpClient _httpClient;
         private System.Lazy<Newtonsoft.Json.JsonSerializerSettings> _settings;
     
-        public TodoListsClient(System.Net.Http.HttpClient httpClient)
+        public TodoListsClient(TokenProvider configuration, System.Net.Http.HttpClient httpClient) : base(configuration)
         {
             _httpClient = httpClient;
             _settings = new System.Lazy<Newtonsoft.Json.JsonSerializerSettings>(CreateSerializerSettings);
@@ -668,7 +668,7 @@ namespace BlazorUI.API
             var disposeClient_ = false;
             try
             {
-                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                using (var request_ = await CreateHttpRequestMessageAsync(cancellationToken).ConfigureAwait(false))
                 {
                     request_.Method = new System.Net.Http.HttpMethod("GET");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
@@ -743,7 +743,7 @@ namespace BlazorUI.API
             var disposeClient_ = false;
             try
             {
-                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                using (var request_ = await CreateHttpRequestMessageAsync(cancellationToken).ConfigureAwait(false))
                 {
                     var content_ = new System.Net.Http.StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(command, _settings.Value));
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
@@ -822,7 +822,7 @@ namespace BlazorUI.API
             var disposeClient_ = false;
             try
             {
-                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                using (var request_ = await CreateHttpRequestMessageAsync(cancellationToken).ConfigureAwait(false))
                 {
                     request_.Method = new System.Net.Http.HttpMethod("GET");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/octet-stream"));
@@ -899,7 +899,7 @@ namespace BlazorUI.API
             var disposeClient_ = false;
             try
             {
-                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                using (var request_ = await CreateHttpRequestMessageAsync(cancellationToken).ConfigureAwait(false))
                 {
                     var content_ = new System.Net.Http.StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(command, _settings.Value));
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
@@ -976,7 +976,7 @@ namespace BlazorUI.API
             var disposeClient_ = false;
             try
             {
-                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                using (var request_ = await CreateHttpRequestMessageAsync(cancellationToken).ConfigureAwait(false))
                 {
                     request_.Method = new System.Net.Http.HttpMethod("DELETE");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/octet-stream"));
@@ -1145,12 +1145,12 @@ namespace BlazorUI.API
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.13.2.0 (NJsonSchema v10.5.2.0 (Newtonsoft.Json v12.0.0.0))")]
-    public partial class WeatherForecastClient : IWeatherForecastClient
+    public partial class WeatherForecastClient : ClientBase, IWeatherForecastClient
     {
         private System.Net.Http.HttpClient _httpClient;
         private System.Lazy<Newtonsoft.Json.JsonSerializerSettings> _settings;
     
-        public WeatherForecastClient(System.Net.Http.HttpClient httpClient)
+        public WeatherForecastClient(TokenProvider configuration, System.Net.Http.HttpClient httpClient) : base(configuration)
         {
             _httpClient = httpClient;
             _settings = new System.Lazy<Newtonsoft.Json.JsonSerializerSettings>(CreateSerializerSettings);
@@ -1188,7 +1188,7 @@ namespace BlazorUI.API
             var disposeClient_ = false;
             try
             {
-                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                using (var request_ = await CreateHttpRequestMessageAsync(cancellationToken).ConfigureAwait(false))
                 {
                     request_.Method = new System.Net.Http.HttpMethod("GET");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));

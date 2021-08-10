@@ -1,9 +1,9 @@
 {
   "runtime": "Net50",
-  "defaultVariables": "CSharpOutputPath=..\\BlazorUI\\API",
+  "defaultVariables": "CSharpOutputPath=..\\BlazorUI\\ApiClient",
   "documentGenerator": {
     "aspNetCoreToOpenApi": {
-      "project": "API.csproj",
+      "project": "Api.csproj",
       "msBuildProjectExtensionsPath": null,
       "configuration": null,
       "runtime": null,
@@ -57,8 +57,8 @@
   },
   "codeGenerators": {
     "openApiToCSharpClient": {
-      "clientBaseClass": null,
-      "configurationClass": null,
+      "clientBaseClass": "ClientBase",
+      "configurationClass": "TokenProvider",
       "generateClientClasses": true,
       "generateClientInterfaces": true,
       "clientBaseInterface": null,
@@ -70,7 +70,7 @@
       "wrapDtoExceptions": true,
       "useHttpClientCreationMethod": false,
       "httpClientType": "System.Net.Http.HttpClient",
-      "useHttpRequestMessageCreationMethod": false,
+      "useHttpRequestMessageCreationMethod": true,
       "useBaseUrl": false,
       "generateBaseUrlProperty": true,
       "generateSyncMethods": false,
@@ -102,7 +102,7 @@
       "wrapResponseMethods": [],
       "generateResponseClasses": true,
       "responseClass": "SwaggerResponse",
-      "namespace": "BlazorUI.API",
+      "namespace": "ApiClient",
       "requiredPropertiesMustBeDefined": true,
       "dateType": "System.DateTimeOffset",
       "jsonConverters": null,

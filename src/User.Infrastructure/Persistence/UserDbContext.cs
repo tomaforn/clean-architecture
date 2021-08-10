@@ -1,15 +1,22 @@
 ﻿using Common.Infrastructure.Identity;
+using Common.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Modules.User.Application.Interfaces;
+using Modules.User.Application.Shared.Interfaces;
+using Shared.Application.Interfaces;
 using System.Reflection;
+using User.Domain.Entities;
 
-namespace Models.User.Infrastructure.Persistence
+namespace Modules.User.Infrastructure.Persistence
 {
-    public class UserDbContext : IdentityDbContext<ApplicationUser>, IUserDbContext
+    public class UserDbContext : DbContextBase, IUserDbContext
     {
-        public UserDbContext(DbContextOptions<UserDbContext> options) : base(options) { }
-
+        public UserDbContext(DbContextOptions<UserDbContext> options,
+               ICurrentUserService currentUserService,
+               IDomainEventService domainEventService,
+               IDateTime dateTime) : base(options, currentUserService, domainEventService, dateTime) { }
+        public DbSet<UserDetails> UserDetails { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.HasDefaultSchema("User");

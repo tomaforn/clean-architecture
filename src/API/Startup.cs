@@ -8,12 +8,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Modles.User.Infrastructure;
+using Microsoft.IdentityModel.Tokens;
 using Modules.Todolist.Application;
 using Modules.Todolist.Infrastructure;
 using Modules.Todolist.Infrastructure.Persistence;
 using Modules.User.Application;
 using Modules.User.Application.Shared.Interfaces;
+using Modules.User.Infrastructure;
 using NSwag;
 using NSwag.Generation.Processors.Security;
 using System.Linq;
@@ -46,6 +47,25 @@ namespace API
             services.AddControllersWithViews(options =>
                 options.Filters.Add<ApiExceptionFilterAttribute>())
                     .AddFluentValidation(x => x.AutomaticValidationEnabled = false);
+
+            services.AddAuthentication("Bearer")
+                   .AddJwtBearer("Bearer", options =>
+                   {
+                       options.Authority = "https://localhost:5001";
+                       options.TokenValidationParameters = new TokenValidationParameters
+                       {
+                           ValidateAudience = false
+                       };
+                   });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("ApiScope", policy =>
+                {
+                    policy.RequireAuthenticatedUser();
+                    policy.RequireClaim("scope", "api1");
+                });
+            });
 
             services.AddRazorPages();
 
@@ -82,7 +102,6 @@ namespace API
             services.AddUserInfrastructure(Configuration);
         }
 
-
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -101,10 +120,6 @@ namespace API
             app.UseHealthChecks("/health");
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            //if (!env.IsDevelopment())
-            //{
-            //    app.UseSpaStaticFiles();
-            //}
 
             app.UseSwaggerUi3(settings =>
             {
@@ -115,8 +130,8 @@ namespace API
             app.UseRouting();
 
             app.UseAuthentication();
-            app.UseIdentityServer();
             app.UseAuthorization();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

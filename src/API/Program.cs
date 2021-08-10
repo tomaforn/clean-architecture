@@ -1,12 +1,10 @@
-using Common.Infrastructure.Identity;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Models.User.Infrastructure.Persistence;
 using Modules.Todolist.Infrastructure.Persistence;
+using Modules.User.Infrastructure.Persistence;
 using System;
 using System.Threading.Tasks;
 
@@ -32,23 +30,13 @@ namespace API
             try
             {
                 var todoContext = services.GetRequiredService<TodolistDbContext>();
-
                 if (todoContext.Database.IsSqlServer())
                 {
                     todoContext.Database.Migrate();
                     var userContext = services.GetRequiredService<UserDbContext>();
                     userContext.Database.Migrate();
-
                 }
-
-                var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
-                var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-
-                await TodolistDbContextSeed.SeedDefaultUserAsync(userManager, roleManager);
                 await TodolistDbContextSeed.SeedSampleDataAsync(todoContext);
-
-                
-
             }
             catch (Exception ex)
             {
