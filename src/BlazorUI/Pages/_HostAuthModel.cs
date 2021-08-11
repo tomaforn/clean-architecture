@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BlazorUI.Pages
@@ -9,19 +12,23 @@ namespace BlazorUI.Pages
     {
         public IActionResult OnGetLogin()
         {
-            return Challenge(AuthProps(), "oidc");
+            var authProps = new AuthenticationProperties
+            {
+                IsPersistent = true,
+                //ExpiresUtc = DateTimeOffset.UtcNow.AddHours(15),
+                RedirectUri = Url.Content("~/")
+            };
+            return Challenge(authProps, "oidc");
         }
 
         public async Task OnGetLogout()
         {
-            await HttpContext.SignOutAsync("Cookies");
-            await HttpContext.SignOutAsync("oidc", AuthProps());
-        }
-
-        private AuthenticationProperties AuthProps()
-            => new AuthenticationProperties
+            var authProps = new AuthenticationProperties
             {
                 RedirectUri = Url.Content("~/")
             };
+            await HttpContext.SignOutAsync("Cookies");
+            await HttpContext.SignOutAsync("oidc", authProps);
+        }
     }
 }

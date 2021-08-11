@@ -9,14 +9,25 @@
     <a href="/Logout">Logout</a>
 </p>
 
+<h2>Claims</h2>
+
+<dl>
+    @foreach (var claim in Claims)
+    {
+        <dt>@claim.Type</dt>
+        <dd>@claim.Value</dd>
+    }
+</dl>
+
 @code
 {
+    private IEnumerable<System.Security.Claims.Claim> Claims;
     private string Username = "Anonymous User";
 
     protected override async Task OnInitializedAsync()
     {
         var state = await AuthState.GetAuthenticationStateAsync();
-
+        Claims = state.User.Claims;
         Username =
             state.User.Claims
             .Where(c => c.Type.Equals("name"))

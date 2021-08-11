@@ -1,13 +1,13 @@
-﻿using Common.Infrastructure.Identity;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Modules.User.Application.Shared.Interfaces;
 using Modules.User.Application.Shared.Models;
+using Shared.Infrastructure.Identity;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Models.User.Infrastructure.Identity
+namespace Modules.User.Infrastructure.Identity
 {
     public class IdentityService : IIdentityService
     {

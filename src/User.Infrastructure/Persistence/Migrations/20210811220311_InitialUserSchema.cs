@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace User.Infrastructure.Persistence.Migrations
+namespace IdentityServer.Data.Migrations
 {
-    public partial class InitialCreation : Migration
+    public partial class InitialUserSchema : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

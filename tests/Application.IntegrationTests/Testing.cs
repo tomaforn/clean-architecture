@@ -1,12 +1,12 @@
 ﻿using API;
-using Common.Infrastructure.Identity;
+using Shared.Infrastructure.Identity;
 using MediatR;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Models.User.Infrastructure.Identity;
+using Modules.User.Infrastructure.Identity;
 using Modules.Todolist.Infrastructure.Persistence;
 using Modules.User.Application.Shared.Interfaces;
 using Modules.User.Infrastructure.Persistence;

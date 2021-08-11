@@ -1,7 +1,7 @@
-﻿using Common.Infrastructure.Identity;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Modules.Todolist.Domain.Entities;
 using Modules.Todolist.Domain.ValueObjects;
+using Shared.Infrastructure.Identity;
 using System.Linq;
 using System.Threading.Tasks;
 

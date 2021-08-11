@@ -1,6 +1,5 @@
 using API.Filters;
 using API.Services;
-using Common.Infrastructure;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -17,6 +16,7 @@ using Modules.User.Application.Shared.Interfaces;
 using Modules.User.Infrastructure;
 using NSwag;
 using NSwag.Generation.Processors.Security;
+using Shared.Infrastructure;
 using System.Linq;
 
 namespace API
@@ -48,6 +48,12 @@ namespace API
                 options.Filters.Add<ApiExceptionFilterAttribute>())
                     .AddFluentValidation(x => x.AutomaticValidationEnabled = false);
 
+            // Customise default API behaviour
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.SuppressModelStateInvalidFilter = true;
+            });
+
             services.AddAuthentication("Bearer")
                    .AddJwtBearer("Bearer", options =>
                    {
@@ -67,17 +73,9 @@ namespace API
                 });
             });
 
-            services.AddRazorPages();
-
-            // Customise default API behaviour
-            services.Configure<ApiBehaviorOptions>(options =>
-            {
-                options.SuppressModelStateInvalidFilter = true;
-            });
-
             services.AddOpenApiDocument(configure =>
             {
-                configure.Title = "CleanArchitecture API";
+                configure.Title = "Api";
                 configure.AddSecurity("JWT", Enumerable.Empty<string>(), new OpenApiSecurityScheme
                 {
                     Type = OpenApiSecuritySchemeType.ApiKey,
@@ -92,11 +90,11 @@ namespace API
 
         private void RegisterModules(IServiceCollection services)
         {
-            services.AddCommonApplication();
-            services.AddCommonInfrastructure(Configuration);
-
             services.AddTodolistApplication();
             services.AddTodolistInfrastructure(Configuration);
+
+            services.AddSharedApplication();
+            services.AddSharedInfrastructure(Configuration);
 
             services.AddUserApplication();
             services.AddUserInfrastructure(Configuration);
@@ -121,6 +119,7 @@ namespace API
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
+            app.UseOpenApi();
             app.UseSwaggerUi3(settings =>
             {
                 settings.Path = "/api";
@@ -136,8 +135,8 @@ namespace API
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller}/{action=Index}/{id?}");
-                endpoints.MapRazorPages();
+                    pattern: "{controller}/{action=Index}/{id?}")
+                .RequireAuthorization("ApiScope");
             });
 
         }

@@ -1,9 +1,13 @@
-﻿using Common.Infrastructure.Services;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Modules.User.Application.Shared.Interfaces;
+using Modules.User.Infrastructure.Identity;
 using Modules.User.Infrastructure.Persistence;
 using Shared.Application.Interfaces;
+using Shared.Infrastructure.Identity;
+using Shared.Infrastructure.Services;
 
 namespace Modules.User.Infrastructure
 {
@@ -24,8 +28,12 @@ namespace Modules.User.Infrastructure
                         b => b.MigrationsAssembly(typeof(UserDbContext).Assembly.FullName)));
             }
 
-            services.AddScoped<IDomainEventService, DomainEventService>();
+            services.AddDefaultIdentity<ApplicationUser>()
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<UserDbContext>();
 
+            services.AddScoped<IDomainEventService, DomainEventService>();
+            services.AddTransient<IIdentityService, IdentityService>();
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("CanPurge", policy => policy.RequireRole("Administrator"));

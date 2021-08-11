@@ -3,22 +3,14 @@ using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
+using Shared.Application.Interfaces;
 
 namespace Modules.Todolist.Application
 {
     public static class DependencyInjection
     {
-        public static IServiceCollection AddCommonApplication(this IServiceCollection services)
+        public static IServiceCollection AddSharedApplication(this IServiceCollection services)
         {
-            //var mapperConfig = new MapperConfiguration(cfg =>
-            //{
-                //cfg.AddProfile<MappingProfile>();
-            //});
-
-            //services.AddAutoMapper(typeof(MappingProfile));
-            
-            //mapperConfig, Assembly.GetExecutingAssembly());
-            //services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             services.AddMediatR(Assembly.GetExecutingAssembly());
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(UnhandledExceptionBehaviour<,>));            

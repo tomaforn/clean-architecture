@@ -1,6 +1,7 @@
 ﻿using MediatR.Pipeline;
 using Microsoft.Extensions.Logging;
 using Modules.User.Application.Shared.Interfaces;
+using Shared.Application.Interfaces;
 using System.Threading;
 using System.Threading.Tasks;
 

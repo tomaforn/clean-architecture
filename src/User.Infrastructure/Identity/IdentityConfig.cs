@@ -3,7 +3,7 @@ using IdentityServer4;
 using IdentityServer4.Models;
 using System.Collections.Generic;
 
-namespace User.Infrastructure.Identity
+namespace Modules.User.Infrastructure.Identity
 {
     public static class IdentityConfig
     {

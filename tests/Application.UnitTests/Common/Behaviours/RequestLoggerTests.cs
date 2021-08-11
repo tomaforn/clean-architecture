@@ -6,6 +6,7 @@ using NUnit.Framework;
 using System.Threading;
 using System.Threading.Tasks;
 using Modules.User.Application.Shared.Interfaces;
+using Shared.Application.Interfaces;
 
 namespace Modules.Todolist.Application.UnitTests.Common.Behaviours
 {

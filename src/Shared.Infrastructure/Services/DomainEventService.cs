@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
 
-namespace Common.Infrastructure.Services
+namespace Shared.Infrastructure.Services
 {
     public class DomainEventService : IDomainEventService
     {

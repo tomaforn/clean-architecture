@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using Modules.User.Application.Shared.Interfaces;
+using Shared.Application.Interfaces;
 
 namespace Shared.Application.Behaviours
 {

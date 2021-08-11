@@ -1,15 +1,15 @@
-﻿using Shared.Application.Interfaces;
-using Common.Infrastructure.Services;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Shared.Application.Interfaces;
+using Shared.Infrastructure.Services;
 
-namespace Common.Infrastructure
+namespace Shared.Infrastructure
 {
     public static class DependencyInjection
     {
-        public static IServiceCollection AddCommonInfrastructure(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddSharedInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddScoped<IDomainEventService, DomainEventService>();
+            services.AddScoped<IDomainEventService, DomainEventService>();            
             services.AddTransient<IDateTime, DateTimeService>();
             return services;
         }

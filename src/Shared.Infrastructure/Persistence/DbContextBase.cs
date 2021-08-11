@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Common.Infrastructure.Persistence
+namespace Shared.Infrastructure.Persistence
 {
     public abstract class DbContextBase : DbContext
     {

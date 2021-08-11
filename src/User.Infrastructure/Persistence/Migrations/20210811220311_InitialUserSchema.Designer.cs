@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Modules.User.Infrastructure.Persistence;
 using System;
 
-namespace User.Infrastructure.Persistence.Migrations
+namespace IdentityServer.Data.Migrations
 {
     [DbContext(typeof(UserDbContext))]
-    [Migration("20210803205742_InitialCreation")]
-    partial class InitialCreation
+    [Migration("20210811220311_InitialUserSchema")]
+    partial class InitialUserSchema
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -18,10 +18,10 @@ namespace User.Infrastructure.Persistence.Migrations
             modelBuilder
                 .HasDefaultSchema("User")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.8")
+                .HasAnnotation("ProductVersion", "5.0.9")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Common.Infrastructure.Identity.ApplicationUser", b =>
+            modelBuilder.Entity("IdentityServerAspNetIdentity.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -228,7 +228,7 @@ namespace User.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Common.Infrastructure.Identity.ApplicationUser", null)
+                    b.HasOne("IdentityServerAspNetIdentity.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -237,7 +237,7 @@ namespace User.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Common.Infrastructure.Identity.ApplicationUser", null)
+                    b.HasOne("IdentityServerAspNetIdentity.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -252,7 +252,7 @@ namespace User.Infrastructure.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Common.Infrastructure.Identity.ApplicationUser", null)
+                    b.HasOne("IdentityServerAspNetIdentity.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -261,7 +261,7 @@ namespace User.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Common.Infrastructure.Identity.ApplicationUser", null)
+                    b.HasOne("IdentityServerAspNetIdentity.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

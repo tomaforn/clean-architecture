@@ -2,7 +2,7 @@
 using Modules.User.Application.Shared.Models;
 using System.Linq;
 
-namespace Models.User.Infrastructure.Identity
+namespace Modules.User.Infrastructure.Identity
 {
     public static class IdentityResultExtensions
     {

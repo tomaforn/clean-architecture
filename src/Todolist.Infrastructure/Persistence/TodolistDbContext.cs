@@ -1,5 +1,5 @@
 ﻿using Shared.Application.Interfaces;
-using Common.Infrastructure.Persistence;
+using Shared.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Modules.Todolist.Application.Interfaces;
 using Modules.Todolist.Domain.Entities;
