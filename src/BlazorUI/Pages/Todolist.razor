@@ -1,0 +1,58 @@
+﻿@page "/todolist"
+
+@using API.Client
+@inject ITodoListsClient client
+
+<h1>Todo lists</h1>
+
+@if (todolist == null)
+{
+    <p><em>Loading...</em></p> 
+}
+else
+{
+    <select class="form-control selectpicker" onchange=RenderItems>
+        <option>--select--</option>
+        @foreach (var todolist in todolist.Lists)
+        {
+            <option value="@todolist.Id">@todolist.Title</option>
+        }
+    </select>
+    @if (todoItems != null)
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Colour</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var todolist in todolist.Lists)
+                {
+                    <tr>
+                        <td>@todolist.Title</td>
+                        <td>@todolist.Colour</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+     }
+ }
+
+@code {
+    private TodosVm todolist = null;
+    private ICollection<TodoItemDto> todoItems = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        todolist = await client.GetAsync();
+    }
+
+    protected void RenderItems(ChangeEventArgs e)
+    {
+        var selectedTodoList = todolist.Lists.Where(x => x.Id == (int)e.Value).FirstOrDefault();
+        todoItems = selectedTodoList.Items;
+
+    }
+}

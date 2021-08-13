@@ -1,6 +1,6 @@
 {
   "runtime": "Net50",
-  "defaultVariables": "CSharpOutputPath=..\\BlazorUI\\ApiClient",
+  "defaultVariables": "CSharpOutputPath=..\\API.Client\\",
   "documentGenerator": {
     "aspNetCoreToOpenApi": {
       "project": "Api.csproj",
@@ -102,7 +102,7 @@
       "wrapResponseMethods": [],
       "generateResponseClasses": true,
       "responseClass": "SwaggerResponse",
-      "namespace": "ApiClient",
+      "namespace": "API.Client",
       "requiredPropertiesMustBeDefined": true,
       "dateType": "System.DateTimeOffset",
       "jsonConverters": null,

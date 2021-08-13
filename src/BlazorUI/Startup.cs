@@ -1,4 +1,4 @@
-using ApiClient;
+using API.Client;
 using BlazorUI.Services;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
