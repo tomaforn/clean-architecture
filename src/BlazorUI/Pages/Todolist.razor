@@ -1,58 +1,146 @@
 ﻿@page "/todolist"
 
+@inject ITodoListsClient listClient
+@inject ITodoItemsClient itemClient
+@using BlazorUI.Components
 @using API.Client
-@inject ITodoListsClient client
 
-<h1>Todo lists</h1>
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Todolists</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Todolist</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
 
-@if (todolist == null)
-{
-    <p><em>Loading...</em></p> 
-}
-else
-{
-    <select class="form-control selectpicker" onchange=RenderItems>
-        <option>--select--</option>
-        @foreach (var todolist in todolist.Lists)
-        {
-            <option value="@todolist.Id">@todolist.Title</option>
-        }
-    </select>
-    @if (todoItems != null)
-    {
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Colour</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var todolist in todolist.Lists)
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                @if (todolist == null)
                 {
-                    <tr>
-                        <td>@todolist.Title</td>
-                        <td>@todolist.Colour</td>
-                    </tr>
+                    <p><em>Loading...</em></p>
                 }
-            </tbody>
-        </table>
-     }
- }
+                else
+                {
+                    <div class="form-group">
+                        <select class="form-control selectpicker" @onchange="HandleListChange">
+                            <option>--select--</option>
+                            @foreach (var todolist in todolist.Lists)
+                            {
+                                <option value="@todolist.Id">@todolist.Title</option>
+                            }
+                        </select>
+                    </div>
+                }
+                @if (todoItems == null)
+                {
+                    <p><em>Loading...</em></p>
+                }
+                else
+                {
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Available items</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <table id="example1" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Note</th>
+                                        <th>Priority</th>
+                                        <th>Done</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var todoItem in todoItems.Items)
+                                    {
+                                        <tr>
+                                            <td>@todoItem.Title</td>
+                                            <td>@todoItem.Note</td>
+                                            <td>@todoItem.Priority</td>
+                                            <td><input type="checkbox" @bind="@todoItem.Done" /></td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                        <Pager PageIndex=@todoItems.PageIndex TotalItems="@todoItems.TotalCount" TotalPages=@todoItems.TotalPages OnClick="PageIndexChanged"
+                               HasNextPage=@todoItems.HasNextPage HasPreviousPage=@todoItems.HasPreviousPage>
+                        </Pager>
+                    </div>
+                    <!-- /.card -->
+
+                    <div class="form-group">
+                        <label>
+                            Title:
+                            <input type='text' name='title' id='title' @bind="createTodoItemCommand.Title">
+                        </label>
+                        <input type="button" @onclick="AddTodoItem" value="Add" />
+                    </div>
+                }
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+
 
 @code {
     private TodosVm todolist = null;
-    private ICollection<TodoItemDto> todoItems = null;
+    private PaginatedListOfTodoItemDto todoItems;
+    private CreateTodoItemCommand createTodoItemCommand = null;
+    private int selectedListId;
 
     protected override async Task OnInitializedAsync()
     {
-        todolist = await client.GetAsync();
+        todolist = await listClient.GetAsync();
     }
-
-    protected void RenderItems(ChangeEventArgs e)
+    protected async Task HandleListChange(ChangeEventArgs e)
     {
-        var selectedTodoList = todolist.Lists.Where(x => x.Id == (int)e.Value).FirstOrDefault();
-        todoItems = selectedTodoList.Items;
-
+        selectedListId = Convert.ToInt32(e.Value);
+        await ReloadItems();
     }
+    public async void PageIndexChanged(int newPageNumber)
+    {
+        if (newPageNumber < 1 || newPageNumber > todoItems.TotalPages)
+        {
+            return;
+        }
+        await GetTodoItems(selectedListId, newPageNumber);
+        StateHasChanged();
+    }
+
+    public async Task GetTodoItems(int listId, int pageNumber)
+    {
+        todoItems = await itemClient.GetTodoItemsWithPaginationAsync(listId, pageNumber, 15);
+        createTodoItemCommand = new CreateTodoItemCommand() { ListId = selectedListId };
+    }
+    protected async Task AddTodoItem()
+    {
+        var id = await itemClient.CreateAsync(createTodoItemCommand);
+        await ReloadItems();
+    }
+
+    private async Task ReloadItems()
+    {
+        await GetTodoItems(selectedListId, 1);
+    }
+
 }

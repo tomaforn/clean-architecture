@@ -1,0 +1,26 @@
+﻿<!-- small box -->
+<div class="small-box @SeverityBackgroundy">
+    <div class="inner">
+        <h3>@Amount</h3>
+
+        <p>@Text</p>
+    </div>
+    <div class="icon">
+        <i class="ion @Icon"></i>
+    </div>
+    <a href="@Url" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+</div>
+
+@code {
+    [Parameter]
+    public int Amount { get; set; }
+    [Parameter]
+    public string Text { get; set; }
+    [Parameter]
+    public string Url { get; set; }
+    [Parameter]
+    public string Icon { get; set; }
+    [Parameter]
+    public string SeverityBackgroundy { get; set; }
+
+}

@@ -15,11 +15,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BlazorUI</title>
     <base href="~/" />
-    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
-    <link href="css/site.css" rel="stylesheet" />
-    <link href="BlazorUI.styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="AdminLTE/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="AdminLTE/dist/css/adminlte.min.css">
 </head>
-<body>
+<body class="hold-transition sidebar-mini">
     @if (User.Identity.IsAuthenticated)
     {
         <component type="typeof(App)" param-AccessToken="accessToken" render-mode="ServerPrerendered" />
@@ -34,16 +35,18 @@
             <a href="" class="reload">Reload</a>
             <a class="dismiss">🗙</a>
         </div>
+        <script src="AdminLTE/plugins/jquery/jquery.min.js"></script>
+        <script src="AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="AdminLTE/dist/js/adminlte.js"></script>
+        <!--<script src="AdminLTE/plugins/chart.js/Chart.min.js"></script>
+        <script src="AdminLTE/dist/js/demo.js"></script>
+        <script src="AdminLTE/dist/js/pages/dashboard3.js"></script>-->
 
         <script src="_framework/blazor.server.js"></script>
     }
     else
     {
-        <h3>You are not logged into this application.</h3>
-
-        <p>
-            <a href="/Login">Login</a>
-        </p>
+        Response.Redirect("/Login");
     }
 
 </body>

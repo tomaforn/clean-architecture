@@ -1,0 +1,28 @@
+﻿<li class="nav-item">
+    <a href="@Url" class="nav-link">
+        <i class="nav-icon fas @Icon"></i>
+        <p>
+            @Text
+            @if(@IsNew)
+            {
+                <span class="right badge badge-danger">New</span>
+            }
+            
+        </p>
+    </a>
+</li>
+
+@code {
+
+    [Parameter]
+    public string Text { get; set; }
+
+    [Parameter]
+    public string Url { get; set; }
+
+    [Parameter]
+    public string Icon { get; set; }
+
+    [Parameter]
+    public bool IsNew { get; set; }
+}

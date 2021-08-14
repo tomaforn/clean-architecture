@@ -1,23 +1,40 @@
-﻿using IdentityModel.Client;
+﻿using API.Client;
+using IdentityModel.Client;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Configuration;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace OtherClient
+namespace ExecutableClient
 {
     class Program
     {
         private static async Task Main()
         {
+            var apiUrl = ConfigurationManager.AppSettings["ApiUri"];
+            var identityServerUri = ConfigurationManager.AppSettings["IdentityServer"];
+
+            var tokenProvider = await GetToken(identityServerUri);
+
+            var httpClient = new HttpClient() { BaseAddress = new Uri(apiUrl) };
+            var weatherclient = new WeatherForecastClient(tokenProvider, httpClient);
+
+            var weatherList = await weatherclient.GetAsync();
+            foreach (var weather in weatherList)
+                Console.WriteLine($"Date: {weather.Date}, Temperature: {weather.TemperatureC}");            
+        }
+
+        private static async Task<TokenProvider> GetToken(string identityServerUri)
+        {
             // discover endpoints from metadata
             var client = new HttpClient();
 
-            var disco = await client.GetDiscoveryDocumentAsync("https://localhost:5001");
+            var disco = await client.GetDiscoveryDocumentAsync(identityServerUri);
             if (disco.IsError)
             {
                 Console.WriteLine(disco.Error);
-                return;
+                return null;
             }
 
             // request token
@@ -33,26 +50,9 @@ namespace OtherClient
             if (tokenResponse.IsError)
             {
                 Console.WriteLine(tokenResponse.Error);
-                return;
+                return null;
             }
-
-            Console.WriteLine(tokenResponse.Json);
-            Console.WriteLine("\n\n");
-
-            // call api
-            var apiClient = new HttpClient();
-            apiClient.SetBearerToken(tokenResponse.AccessToken);
-
-            var response = await apiClient.GetAsync("https://localhost:44318/api/WeatherForecast");
-            if (!response.IsSuccessStatusCode)
-            {
-                Console.WriteLine(response.StatusCode);
-            }
-            else
-            {
-                var content = await response.Content.ReadAsStringAsync();
-                Console.WriteLine(JArray.Parse(content));
-            }
+            return new TokenProvider() { AccessToken = tokenResponse.AccessToken };
         }
     }
 }

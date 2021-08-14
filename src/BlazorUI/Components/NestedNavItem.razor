@@ -1,0 +1,24 @@
+﻿<li class="nav-item">
+    <a href="#" class="nav-link">
+        <i class="nav-icon fas @Icon"></i>
+        <p>
+            @Text
+            <i class="fas fa-angle-left right"></i>
+        </p>
+    </a>
+    <ul class="nav nav-treeview">
+        @ChildContent        
+    </ul>
+</li>
+
+@code {
+    [Parameter]
+    public string Text { get; set; }
+
+    [Parameter]
+    public string Icon { get; set; }
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+}

@@ -1,39 +1,38 @@
 ﻿@page "/"
 @inject AuthenticationStateProvider AuthState
 
-<h1>Hello, @Username</h1>
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Dashboard</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item active"><a href="#">Home</a></li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</section>
+<!-- /.content-header -->
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+            <div class="col-lg-3 col-6">
+                <BlazorUI.Components.NumberCard Amount="150" Text="Todo items" Url="/todolist" Icon="ion-list-outline" SeverityBackgroundy="bg-info"></BlazorUI.Components.NumberCard>
+            </div>
+            <div class="col-lg-3 col-6">
+                <BlazorUI.Components.NumberCard Amount="4" Text="Users" Url="/userprofile" Icon="ion-person-add" SeverityBackgroundy="bg-danger"></BlazorUI.Components.NumberCard>
+            </div>            
+        </div>
+        <!-- /.row -->
+        
+    </div><!-- /.container-fluid -->
+</section>
+<!-- /.content -->
 
-<p>Welcome to your new app.</p>
-
-<p>
-    <a href="/Logout">Logout</a>
-</p>
-
-<h2>Claims</h2>
-
-<dl>
-    @foreach (var claim in Claims)
-    {
-        <dt>@claim.Type</dt>
-        <dd>@claim.Value</dd>
-    }
-</dl>
-
-@code
-{
-    private IEnumerable<System.Security.Claims.Claim> Claims;
-    private string Username = "Anonymous User";
-
-    protected override async Task OnInitializedAsync()
-    {
-        var state = await AuthState.GetAuthenticationStateAsync();
-        Claims = state.User.Claims;
-        Username =
-            state.User.Claims
-            .Where(c => c.Type.Equals("name"))
-            .Select(c => c.Value)
-            .FirstOrDefault() ?? string.Empty;
-
-        await base.OnInitializedAsync();
-    }
-}
+@code{}
