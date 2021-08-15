@@ -1,5 +1,6 @@
 ﻿@page "/userprofile"
 @inject AuthenticationStateProvider AuthState
+@inject API.Client.TokenProvider tokenProvider
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
@@ -52,6 +53,16 @@
                                     }
                                 </tbody>
                             </table>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Api Token</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <p>@tokenProvider.AccessToken</p>
                         </div>
                     </div>
                     <!-- /.card -->

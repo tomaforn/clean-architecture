@@ -4,6 +4,7 @@
 @inject ITodoItemsClient itemClient
 @using BlazorUI.Components
 @using API.Client
+@using Blazored.FluentValidation
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
@@ -85,11 +86,15 @@
                     <!-- /.card -->
 
                     <div class="form-group">
-                        <label>
-                            Title:
-                            <input type='text' name='title' id='title' @bind="createTodoItemCommand.Title">
-                        </label>
-                        <input type="button" @onclick="AddTodoItem" value="Add" />
+                        <EditForm Model="createTodoItemCommand" OnValidSubmit="AddTodoItem">
+                            <FluentValidationValidator />
+
+                            <label for="title">Title:</label>
+                            <InputText id="title" @bind-Value="createTodoItemCommand.Title" />
+                            <button type="submit">Add</button>
+
+                            <ValidationSummary />
+                        </EditForm>
                     </div>
                 }
             </div>
@@ -107,6 +112,9 @@
     private PaginatedListOfTodoItemDto todoItems;
     private CreateTodoItemCommand createTodoItemCommand = null;
     private int selectedListId;
+
+    [CascadingParameter]
+    public Error Error { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -134,7 +142,15 @@
     }
     protected async Task AddTodoItem()
     {
-        var id = await itemClient.CreateAsync(createTodoItemCommand);
+        try
+        {
+            var id = await itemClient.CreateAsync(createTodoItemCommand);            
+        }
+        catch (Exception ex)
+        {
+            Error.ProcessError(ex);
+        }
+
         await ReloadItems();
     }
 

@@ -1,0 +1,52 @@
+﻿@using Microsoft.Extensions.Logging
+@inject ILogger<Error> Logger
+@inject IToastService toastService
+@using API.Client;
+@using Newtonsoft.Json;
+@using System.Net;
+@using Microsoft.AspNetCore.Mvc
+
+
+<CascadingValue Value=this>
+    @ChildContent
+</CascadingValue>
+
+@code {
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    public void ProcessError(Exception ex)
+    {
+        Logger.LogError("Error:ProcessError - Type: {Type} Message: {Message}",
+            ex.GetType(), ex.Message);
+
+        if (ex is ApiException)
+            HandleApiException((ApiException)ex);
+        else
+            toastService.ShowError(ex.Message);
+    }
+
+    private void HandleApiException(ApiException ex)
+    {
+        if (ex.StatusCode == (int)HttpStatusCode.BadRequest)
+        {
+            HandleBadRequestException(ex);
+        }
+
+    }
+
+    private void HandleBadRequestException(ApiException ex)
+    {
+        var validationProblemDetails = JsonConvert.DeserializeObject<ValidationProblemDetails>(ex.Response);
+        var extractedErrors = new List<string>();
+        foreach (KeyValuePair<string, string[]> error in validationProblemDetails.Errors)
+        {
+            foreach (var item in error.Value)
+            {
+                extractedErrors.Add(item);
+            }
+        }
+
+        toastService.ShowError(String.Join("\n", extractedErrors), "Validation errors");
+    }
+}

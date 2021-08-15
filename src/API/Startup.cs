@@ -90,11 +90,11 @@ namespace API
 
         private void RegisterModules(IServiceCollection services)
         {
-            services.AddTodolistApplication();
-            services.AddTodolistInfrastructure(Configuration);
-
             services.AddSharedApplication();
             services.AddSharedInfrastructure(Configuration);
+
+            services.AddTodolistApplication();
+            services.AddTodolistInfrastructure(Configuration);
 
             services.AddUserApplication();
             services.AddUserInfrastructure(Configuration);

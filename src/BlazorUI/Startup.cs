@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Threading.Tasks;
+using Blazored.Toast;
 
 namespace BlazorUI
 {
@@ -69,7 +70,9 @@ namespace BlazorUI
                     }
                 };
             });
-           
+
+            services.AddBlazoredToast();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

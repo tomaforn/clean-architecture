@@ -4,7 +4,7 @@
 
     [Parameter]
     public string AccessToken { get; set; }
-
+    
     protected override void OnInitialized()
     {
         //Accept the parameter from _Host.cshtml and move into the Token Provider
@@ -12,26 +12,28 @@
         base.OnInitialized();
     }
 }
-<Router AppAssembly="@typeof(Program).Assembly">
-    <Found Context="routeData">
-        <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
-            <NotAuthorized>
-                <h1>Sorry</h1>
-                <p>You're not authorized to reach this page.</p>
-                <p>You may need to log in as a different user.</p>
-            </NotAuthorized>
-            <Authorizing>
-                <h1>Authentication in progress</h1>
-                <p>Only visible while authentication is in progress.</p>
-            </Authorizing>
-        </AuthorizeRouteView>
-    </Found>
-    <NotFound>
-        <CascadingAuthenticationState>
-            <LayoutView Layout="@typeof(MainLayout)">
-                <h1>Sorry</h1>
-                <p>Sorry, there's nothing at this address.</p>
-            </LayoutView>
-        </CascadingAuthenticationState>
-    </NotFound>
-</Router>
+<Error>
+    <Router AppAssembly="@typeof(Program).Assembly">
+        <Found Context="routeData">
+            <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
+                <NotAuthorized>
+                    <h1>Sorry</h1>
+                    <p>You're not authorized to reach this page.</p>
+                    <p>You may need to log in as a different user.</p>
+                </NotAuthorized>
+                <Authorizing>
+                    <h1>Authentication in progress</h1>
+                    <p>Only visible while authentication is in progress.</p>
+                </Authorizing>
+            </AuthorizeRouteView>
+        </Found>
+        <NotFound>
+            <CascadingAuthenticationState>
+                <LayoutView Layout="@typeof(MainLayout)">
+                    <h1>Sorry</h1>
+                    <p>Sorry, there's nothing at this address.</p>
+                </LayoutView>
+            </CascadingAuthenticationState>
+        </NotFound>
+    </Router>
+</Error>
