@@ -3,8 +3,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Modules.Ticket.Infrastructure.Persistence;
 using Modules.Todolist.Infrastructure.Persistence;
 using Modules.User.Infrastructure.Persistence;
+using Modules.Workorder.Infrastructure.Persistence;
 using System;
 using System.Threading.Tasks;
 
@@ -33,8 +35,9 @@ namespace API
                 if (todoContext.Database.IsSqlServer())
                 {
                     todoContext.Database.Migrate();
-                    var userContext = services.GetRequiredService<UserDbContext>();
-                    userContext.Database.Migrate();
+                    services.GetRequiredService<UserDbContext>().Database.Migrate();
+                    services.GetRequiredService<TicketDbContext>().Database.Migrate();
+                    services.GetRequiredService<WorkorderDbContext>().Database.Migrate();
                 }
                 await TodolistDbContextSeed.SeedSampleDataAsync(todoContext);
             }

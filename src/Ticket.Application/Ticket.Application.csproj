@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>Ticket.Application</RootNamespace>
+    <AssemblyName>Ticket.Application</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
@@ -10,13 +12,17 @@
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="10.3.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.8" />
-    <PackageReference Include="Microsoft.Extensions.Options" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Shared.IntegrationEvents\Shared.IntegrationEvents\Shared.IntegrationEvents.csproj" />
-    <ProjectReference Include="..\Shared.Domain\Shared.Domain.csproj" />
-    <ProjectReference Include="..\User.Shared\User.Application.Shared.csproj" />
+    <ProjectReference Include="..\Shared.Application\Shared.Application.csproj" />
+    <ProjectReference Include="..\Ticket.Domain\Ticket.Domain.csproj" />
+    <ProjectReference Include="..\Ticket.IntegrationEvents\Ticket.IntegrationEvents.csproj" />
+    <ProjectReference Include="..\Workorder.IntegrationEvents\Workorder.IntegrationEvents.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Queries\" />
   </ItemGroup>
 
 </Project>

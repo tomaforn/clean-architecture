@@ -8,12 +8,16 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using Modules.Ticket.Application;
+using Modules.Ticket.Infrastructure;
 using Modules.Todolist.Application;
 using Modules.Todolist.Infrastructure;
 using Modules.Todolist.Infrastructure.Persistence;
 using Modules.User.Application;
 using Modules.User.Application.Shared.Interfaces;
 using Modules.User.Infrastructure;
+using Modules.Workorder.Application;
+using Modules.Workorder.Infrastructure;
 using NSwag;
 using NSwag.Generation.Processors.Security;
 using Shared.Infrastructure;
@@ -98,6 +102,12 @@ namespace API
 
             services.AddUserApplication();
             services.AddUserInfrastructure(Configuration);
+
+            services.AddWorkorderApplication();
+            services.AddWorkorderInfrastructure(Configuration);
+
+            services.AddTicketApplication();
+            services.AddTicketInfrastructure(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
