@@ -1,10 +1,11 @@
 @inject API.Client.TokenProvider tokenProvider
+@inject NavigationManager NavManager
 @code
 {
 
     [Parameter]
     public string AccessToken { get; set; }
-    
+
     protected override void OnInitialized()
     {
         //Accept the parameter from _Host.cshtml and move into the Token Provider
@@ -17,9 +18,7 @@
         <Found Context="routeData">
             <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
                 <NotAuthorized>
-                    <h1>Sorry</h1>
-                    <p>You're not authorized to reach this page.</p>
-                    <p>You may need to log in as a different user.</p>
+                    @{ NavManager.NavigateTo("/Logoff", true); }
                 </NotAuthorized>
                 <Authorizing>
                     <h1>Authentication in progress</h1>

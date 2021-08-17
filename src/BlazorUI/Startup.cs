@@ -10,6 +10,10 @@ using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Threading.Tasks;
 using Blazored.Toast;
+using BlazorUI.Authentication;
+using Microsoft.AspNetCore.Components.Authorization;
+using IdentityModel.Client;
+using System.Net.Http;
 
 namespace BlazorUI
 {
@@ -29,7 +33,7 @@ namespace BlazorUI
             services.AddRazorPages()
                     .AddNewtonsoftJson();
 
-            services.AddScoped<TokenProvider>();
+            services.AddScoped<TokenProvider>();            
             services.AddScoped<ICurrentUserService, CurrentUserService>();
             services.AddHttpContextAccessor();
 
@@ -38,6 +42,14 @@ namespace BlazorUI
             services.AddServerSideBlazor();
 
             JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
+            services.AddHttpClient();
+            services.AddSingleton<IDiscoveryCache>(sp =>
+            {
+                var factory = sp.GetRequiredService<IHttpClientFactory>();
+                return new DiscoveryCache(
+                    "https://localhost:5001",
+                    () => factory.CreateClient());
+            });
 
             services.AddAuthentication(options =>
             {
@@ -55,6 +67,7 @@ namespace BlazorUI
 
                 options.SaveTokens = true;
 
+                options.Scope.Add("openid");
                 options.Scope.Add("api1");
                 options.Scope.Add("offline_access");
 
@@ -72,7 +85,8 @@ namespace BlazorUI
             });
 
             services.AddBlazoredToast();
-
+            services.AddSingleton<BlazorServerAuthStateCache>();
+            services.AddScoped<AuthenticationStateProvider, BlazorServerAuthState>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
