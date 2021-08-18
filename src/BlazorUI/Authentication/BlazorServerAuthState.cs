@@ -62,7 +62,7 @@ namespace BlazorUI.Authentication
                 new RefreshTokenRequest
                 {
                     Address = disco.TokenEndpoint,
-                    ClientId = "interactive.confidential.short",
+                    ClientId = "https://localhost:5001",
                     ClientSecret = "secret",
                     RefreshToken = data.RefreshToken
                 });

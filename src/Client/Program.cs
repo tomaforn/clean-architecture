@@ -18,11 +18,11 @@ namespace ExecutableClient
             var tokenProvider = await GetToken(identityServerUri);
 
             var httpClient = new HttpClient() { BaseAddress = new Uri(apiUrl) };
-            var weatherclient = new WeatherForecastClient(tokenProvider, httpClient);
+            var todoListClient = new TodoListsClient(tokenProvider, httpClient);
 
-            var weatherList = await weatherclient.GetAsync();
-            foreach (var weather in weatherList)
-                Console.WriteLine($"Date: {weather.Date}, Temperature: {weather.TemperatureC}");            
+            var todoList = await todoListClient.GetAsync();
+            foreach (var list in todoList.Lists)
+                Console.WriteLine($"Title: {list.Title}, Colour: {list.Colour}");
         }
 
         private static async Task<TokenProvider> GetToken(string identityServerUri)

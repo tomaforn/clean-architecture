@@ -120,8 +120,9 @@ namespace BlazorUI
         {
             services.AddHttpClient<ITodoItemsClient, TodoItemsClient>(client => client.BaseAddress = new Uri(Configuration.GetValue<string>("ApiUri")));
             services.AddHttpClient<ITodoListsClient, TodoListsClient>(client => client.BaseAddress = new Uri(Configuration.GetValue<string>("ApiUri")));
-            services.AddHttpClient<IWeatherForecastClient, WeatherForecastClient>(client => client.BaseAddress = new Uri(Configuration.GetValue<string>("ApiUri")));
-
+            services.AddHttpClient<IWorkorderClient, WorkorderClient>(client => client.BaseAddress = new Uri(Configuration.GetValue<string>("ApiUri")));
+            services.AddHttpClient<ITicketClient, TicketClient>(client => client.BaseAddress = new Uri(Configuration.GetValue<string>("ApiUri")));
+            
             //Funkar inte att loop-regga alla?
             /*services.AddHttpClient("api", (client) =>
             {
