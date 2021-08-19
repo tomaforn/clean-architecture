@@ -1,17 +1,16 @@
-﻿using AutoMapper;
-using FluentValidation;
+﻿using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using Modules.Equipment.Application.Mappings;
 using System.Reflection;
-using Todolist.Application.Mappings;
 
 namespace Modules.Equipment.Application
 {
     public static class DependencyInjection
     {
-        public static IServiceCollection AddTicketApplication(this IServiceCollection services)
+        public static IServiceCollection AddEquipmentApplication(this IServiceCollection services)
         {
-            services.AddAutoMapper(c => c.AddProfile<TicketMappingProfile>(), Assembly.GetExecutingAssembly());
+            services.AddAutoMapper(c => c.AddProfile<EquipmentMappingProfile>(), Assembly.GetExecutingAssembly());
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             services.AddMediatR(Assembly.GetExecutingAssembly());
 

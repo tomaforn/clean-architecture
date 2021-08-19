@@ -21,8 +21,8 @@ namespace Modules.Ticket.Application.TodoItems.EventHandlers
         public Task Handle(DomainEventNotification<TicketClosedEvent> notification, CancellationToken cancellationToken)
         {
             var domainEvent = notification.DomainEvent;
+            _logger.LogInformation($"Event: {domainEvent.GetType().Name} handled by {this.GetType().Name} ");
 
-            _logger.LogInformation("CleanArchitecture Domain Event: {DomainEvent} - Running PublishIntegrationEventWhenTicketIsClosed", domainEvent.GetType().Name);
             _integrationEventService.Publish(new IntegrationEvents.Events.TicketClosedEvent(domainEvent.Item.Id));
 
             return Task.CompletedTask;            

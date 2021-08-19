@@ -8,6 +8,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using Modules.Equipment.Application;
+using Modules.Equipment.Infrastructure;
 using Modules.Ticket.Application;
 using Modules.Ticket.Infrastructure;
 using Modules.Todolist.Application;
@@ -40,9 +42,7 @@ namespace API
             RegisterModules(services);
 
             services.AddDatabaseDeveloperPageExceptionFilter();
-
             services.AddSingleton<ICurrentUserService, CurrentUserService>();
-
             services.AddHttpContextAccessor();
 
             services.AddHealthChecks()
@@ -108,6 +108,9 @@ namespace API
 
             services.AddTicketApplication();
             services.AddTicketInfrastructure(Configuration);
+
+            services.AddEquipmentApplication();
+            services.AddEquipmentInfrastructure(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

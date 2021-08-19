@@ -20,6 +20,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Equipment.Application\Equipment.Application.csproj" />
+    <ProjectReference Include="..\Equipment.Infrastructure\Equipment.Infrastructure.csproj" />
     <ProjectReference Include="..\Ticket.Application\Ticket.Application.csproj" />
     <ProjectReference Include="..\Ticket.Infrastructure\Ticket.Infrastructure.csproj" />
     <ProjectReference Include="..\Todolist.Application\Todolist.Application.csproj" />

@@ -24,7 +24,8 @@ namespace Modules.Ticket.Application.Commands
         {
             var entity = new Domain.Entities.Ticket
             {
-                Name = request.Name
+                Name = request.Name,
+                Status = Domain.Enums.TicketStatus.Open
             };
 
             entity.DomainEvents.Add(new TicketCreatedEvent(entity));

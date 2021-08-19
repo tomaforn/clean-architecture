@@ -8,7 +8,7 @@ namespace Modules.Equipment.Infrastructure
 {
     public static class DependencyInjection
     {
-        public static IServiceCollection AddTicketInfrastructure(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddEquipmentInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
             if (configuration.GetValue<bool>("UseInMemoryDatabase"))
             {

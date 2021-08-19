@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Modules.Equipment.Infrastructure.Persistence;
+using Modules.Ticket.Infrastructure.Persistence;
 
-namespace Equipment.Infrastructure.Persistence.Migrations
+namespace Ticket.Infrastructure.Persistence.Migrations
 {
-    [DbContext(typeof(EquipmentDbContext))]
-    partial class TicketDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(TicketDbContext))]
+    [Migration("20210819210257_InitialSchema")]
+    partial class InitialSchema
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -20,7 +22,39 @@ namespace Equipment.Infrastructure.Persistence.Migrations
                 .HasAnnotation("ProductVersion", "5.0.9")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Modules.Equipment.Domain.Entities.Ticket", b =>
+            modelBuilder.Entity("Modules.Ticket.Domain.Entities.Equipment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("LastModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MoreEquipmentDetailsRelatedToTicket")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("TicketId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TicketId");
+
+                    b.ToTable("Equipments");
+                });
+
+            modelBuilder.Entity("Modules.Ticket.Domain.Entities.Ticket", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -55,7 +89,7 @@ namespace Equipment.Infrastructure.Persistence.Migrations
                     b.ToTable("Tickets");
                 });
 
-            modelBuilder.Entity("Modules.Equipment.Domain.Entities.Workorder", b =>
+            modelBuilder.Entity("Modules.Ticket.Domain.Entities.Workorder", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -83,28 +117,36 @@ namespace Equipment.Infrastructure.Persistence.Migrations
                     b.Property<int?>("TicketId")
                         .HasColumnType("int");
 
-                    b.Property<int>("WorkorderId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("TicketId");
 
-                    b.ToTable("TicketWorkorders");
+                    b.ToTable("Workorders");
                 });
 
-            modelBuilder.Entity("Modules.Equipment.Domain.Entities.Workorder", b =>
+            modelBuilder.Entity("Modules.Ticket.Domain.Entities.Equipment", b =>
                 {
-                    b.HasOne("Modules.Equipment.Domain.Entities.Ticket", "Ticket")
-                        .WithMany("TicketWorkorders")
+                    b.HasOne("Modules.Ticket.Domain.Entities.Ticket", "Ticket")
+                        .WithMany("Equipments")
                         .HasForeignKey("TicketId");
 
                     b.Navigation("Ticket");
                 });
 
-            modelBuilder.Entity("Modules.Equipment.Domain.Entities.Ticket", b =>
+            modelBuilder.Entity("Modules.Ticket.Domain.Entities.Workorder", b =>
                 {
-                    b.Navigation("TicketWorkorders");
+                    b.HasOne("Modules.Ticket.Domain.Entities.Ticket", "Ticket")
+                        .WithMany("Workorders")
+                        .HasForeignKey("TicketId");
+
+                    b.Navigation("Ticket");
+                });
+
+            modelBuilder.Entity("Modules.Ticket.Domain.Entities.Ticket", b =>
+                {
+                    b.Navigation("Equipments");
+
+                    b.Navigation("Workorders");
                 });
 #pragma warning restore 612, 618
         }

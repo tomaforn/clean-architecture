@@ -15,7 +15,8 @@ namespace Modules.Ticket.Infrastructure.Persistence
                 IDateTime dateTime) : base(options, currentUserService, domainEventService, dateTime){ }
 
         public DbSet<Domain.Entities.Ticket> Tickets { get; set; }
-        public DbSet<Domain.Entities.Workorder> TicketWorkorders { get; set; }
+        public DbSet<Domain.Entities.Workorder> Workorders { get; set; }
+        public DbSet<Domain.Entities.Equipment> Equipments { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.HasDefaultSchema("Ticket");

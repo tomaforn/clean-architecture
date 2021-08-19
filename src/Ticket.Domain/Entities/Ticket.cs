@@ -24,7 +24,8 @@ namespace Modules.Ticket.Domain.Entities
                 _status = value;
             }
         }
-        public List<Workorder> TicketWorkorders { get; set; }
+        public List<Workorder> Workorders { get; set; }
+        public List<Equipment> Equipments { get; set; }
         public List<DomainEvent> DomainEvents { get; set; } = new List<DomainEvent>();
     }
 }

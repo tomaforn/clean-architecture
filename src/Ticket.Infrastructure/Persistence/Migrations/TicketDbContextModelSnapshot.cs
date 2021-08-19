@@ -20,6 +20,38 @@ namespace Ticket.Infrastructure.Persistence.Migrations
                 .HasAnnotation("ProductVersion", "5.0.9")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("Modules.Ticket.Domain.Entities.Equipment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("LastModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MoreEquipmentDetailsRelatedToTicket")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("TicketId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TicketId");
+
+                    b.ToTable("Equipments");
+                });
+
             modelBuilder.Entity("Modules.Ticket.Domain.Entities.Ticket", b =>
                 {
                     b.Property<int>("Id")
@@ -83,20 +115,26 @@ namespace Ticket.Infrastructure.Persistence.Migrations
                     b.Property<int?>("TicketId")
                         .HasColumnType("int");
 
-                    b.Property<int>("WorkorderId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("TicketId");
 
-                    b.ToTable("TicketWorkorders");
+                    b.ToTable("Workorders");
+                });
+
+            modelBuilder.Entity("Modules.Ticket.Domain.Entities.Equipment", b =>
+                {
+                    b.HasOne("Modules.Ticket.Domain.Entities.Ticket", "Ticket")
+                        .WithMany("Equipments")
+                        .HasForeignKey("TicketId");
+
+                    b.Navigation("Ticket");
                 });
 
             modelBuilder.Entity("Modules.Ticket.Domain.Entities.Workorder", b =>
                 {
                     b.HasOne("Modules.Ticket.Domain.Entities.Ticket", "Ticket")
-                        .WithMany("TicketWorkorders")
+                        .WithMany("Workorders")
                         .HasForeignKey("TicketId");
 
                     b.Navigation("Ticket");
@@ -104,7 +142,9 @@ namespace Ticket.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("Modules.Ticket.Domain.Entities.Ticket", b =>
                 {
-                    b.Navigation("TicketWorkorders");
+                    b.Navigation("Equipments");
+
+                    b.Navigation("Workorders");
                 });
 #pragma warning restore 612, 618
         }

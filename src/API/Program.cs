@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Modules.Equipment.Infrastructure.Persistence;
 using Modules.Ticket.Infrastructure.Persistence;
 using Modules.Todolist.Infrastructure.Persistence;
 using Modules.User.Infrastructure.Persistence;
@@ -38,6 +39,7 @@ namespace API
                     services.GetRequiredService<UserDbContext>().Database.Migrate();
                     services.GetRequiredService<TicketDbContext>().Database.Migrate();
                     services.GetRequiredService<WorkorderDbContext>().Database.Migrate();
+                    services.GetRequiredService<EquipmentDbContext>().Database.Migrate();
                 }
                 await TodolistDbContextSeed.SeedSampleDataAsync(todoContext);
             }

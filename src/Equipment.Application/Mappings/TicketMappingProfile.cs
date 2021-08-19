@@ -1,10 +1,10 @@
 ﻿using Shared.Application.Mappings;
 using System.Reflection;
 
-namespace Todolist.Application.Mappings
+namespace Modules.Equipment.Application.Mappings
 {
-    public class TicketMappingProfile : MappingProfile 
+    public class EquipmentMappingProfile : MappingProfile 
     {
-        public TicketMappingProfile() : base(Assembly.GetExecutingAssembly()) { }
+        public EquipmentMappingProfile() : base(Assembly.GetExecutingAssembly()) { }
     }
 }

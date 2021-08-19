@@ -11,11 +11,11 @@ namespace Modules.Equipment.Application.Commands
         public string Name { get; set; }
     }
 
-    public class CreateTicketCommandHandler : IRequestHandler<CreateEquipmentCommand, int>
+    public class CreateEquipmentCommandHandler : IRequestHandler<CreateEquipmentCommand, int>
     {
         private readonly IEquipmentDbContext _context;
 
-        public CreateTicketCommandHandler(IEquipmentDbContext context)
+        public CreateEquipmentCommandHandler(IEquipmentDbContext context)
         {
             _context = context;
         }
@@ -27,8 +27,8 @@ namespace Modules.Equipment.Application.Commands
                 Name = request.Name
             };
 
+            entity.DomainEvents.Add(new EquipmentCreatedEvent(entity));
             _context.Equipment.Add(entity);
-
             await _context.SaveChangesAsync(cancellationToken);
 
             return entity.Id;

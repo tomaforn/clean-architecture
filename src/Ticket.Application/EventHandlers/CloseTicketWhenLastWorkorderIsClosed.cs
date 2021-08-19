@@ -22,20 +22,20 @@ namespace Modules.Workorder.Application.TodoItems.EventHandlers
         public async Task Handle(IntegrationEventNotification<WorkorderClosedEvent> notification, CancellationToken cancellationToken)
         {
             var integrationEvent = notification.IntegrationEvent;
-            _logger.LogInformation("CleanArchitecture Domain Event: {DomainEvent} - Running CloseTicketWhenLastWorkorderIsClosed", integrationEvent.GetType().Name);
+            _logger.LogInformation($"Event: {integrationEvent.GetType().Name} handled by {this.GetType().Name} ");
 
-            var ticketWorkorder = _context.TicketWorkorders.Where(x => x.WorkorderId == integrationEvent.WorkorderId).FirstOrDefault();
-            ticketWorkorder.IsClosed = true;
+            var workorder = _context.Workorders.Where(x => x.Id == integrationEvent.WorkorderId).FirstOrDefault();
+            workorder.IsClosed = true;
 
-            if (IsLastWorkorderOnTicket(ticketWorkorder))
-                ticketWorkorder.Ticket.Status = Ticket.Domain.Enums.TicketStatus.Closed;
+            if (IsLastWorkorderOnTicket(workorder))
+                workorder.Ticket.Status = Ticket.Domain.Enums.TicketStatus.Closed;
                 
             await _context.SaveChangesAsync(cancellationToken);
         }
 
         private bool IsLastWorkorderOnTicket(Ticket.Domain.Entities.Workorder workorder)
         {
-            return workorder.Ticket.TicketWorkorders.Count(x => !x.IsClosed) == 0;
+            return workorder.Ticket.Workorders.Count(x => !x.IsClosed) == 0;
         }
     }
 }

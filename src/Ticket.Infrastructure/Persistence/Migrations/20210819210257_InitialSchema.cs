@@ -31,16 +31,14 @@ namespace Ticket.Infrastructure.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TicketWorkorders",
+                name: "Equipments",
                 schema: "Ticket",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    WorkorderId = table.Column<int>(type: "int", nullable: false),
-                    IsClosed = table.Column<bool>(type: "bit", nullable: false),
-                    SomeOtherInformation = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TicketId = table.Column<int>(type: "int", nullable: true),
+                    MoreEquipmentDetailsRelatedToTicket = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastModified = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -48,9 +46,36 @@ namespace Ticket.Infrastructure.Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TicketWorkorders", x => x.Id);
+                    table.PrimaryKey("PK_Equipments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TicketWorkorders_Tickets_TicketId",
+                        name: "FK_Equipments_Tickets_TicketId",
+                        column: x => x.TicketId,
+                        principalSchema: "Ticket",
+                        principalTable: "Tickets",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Workorders",
+                schema: "Ticket",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TicketId = table.Column<int>(type: "int", nullable: true),
+                    IsClosed = table.Column<bool>(type: "bit", nullable: false),
+                    SomeOtherInformation = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastModified = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Workorders", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Workorders_Tickets_TicketId",
                         column: x => x.TicketId,
                         principalSchema: "Ticket",
                         principalTable: "Tickets",
@@ -59,16 +84,26 @@ namespace Ticket.Infrastructure.Persistence.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_TicketWorkorders_TicketId",
+                name: "IX_Equipments_TicketId",
                 schema: "Ticket",
-                table: "TicketWorkorders",
+                table: "Equipments",
+                column: "TicketId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Workorders_TicketId",
+                schema: "Ticket",
+                table: "Workorders",
                 column: "TicketId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "TicketWorkorders",
+                name: "Equipments",
+                schema: "Ticket");
+
+            migrationBuilder.DropTable(
+                name: "Workorders",
                 schema: "Ticket");
 
             migrationBuilder.DropTable(

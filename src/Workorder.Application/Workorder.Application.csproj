@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Shared.Application\Shared.Application.csproj" />
+    <ProjectReference Include="..\Ticket.IntegrationEvents\Ticket.IntegrationEvents.csproj" />
     <ProjectReference Include="..\Workorder.Domain\Workorder.Domain.csproj" />
     <ProjectReference Include="..\Workorder.IntegrationEvents\Workorder.IntegrationEvents.csproj" />
   </ItemGroup>
