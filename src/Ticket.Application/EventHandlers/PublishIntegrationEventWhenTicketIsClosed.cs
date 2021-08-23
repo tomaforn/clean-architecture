@@ -6,7 +6,7 @@ using Shared.Application.Models;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Modules.Ticket.Application.TodoItems.EventHandlers
+namespace Modules.Ticket.Application.EventHandlers
 {
     public class PublishIntegrationEventWhenTicketIsClosed : INotificationHandler<DomainEventNotification<TicketClosedEvent>>
     {

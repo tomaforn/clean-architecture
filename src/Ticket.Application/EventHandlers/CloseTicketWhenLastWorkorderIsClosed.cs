@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Modules.Workorder.Application.TodoItems.EventHandlers
+namespace Modules.Ticket.Application.EventHandlers
 {
     public class CloseTicketWhenLastWorkorderIsClosed : INotificationHandler<IntegrationEventNotification<WorkorderClosedEvent>>
     {

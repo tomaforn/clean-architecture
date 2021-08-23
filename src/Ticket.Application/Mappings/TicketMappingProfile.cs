@@ -1,7 +1,7 @@
 ﻿using Shared.Application.Mappings;
 using System.Reflection;
 
-namespace Todolist.Application.Mappings
+namespace Modules.Ticket.Application.Mappings
 {
     public class TicketMappingProfile : MappingProfile 
     {

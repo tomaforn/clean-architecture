@@ -6,7 +6,7 @@ using Shared.Application.Models;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Modules.Ticket.Application.TodoItems.EventHandlers
+namespace Modules.Equipment.Application.EventHandlers
 {
     public class PublishIntegrationEventWhenEquipmentIsCreated : INotificationHandler<DomainEventNotification<EquipmentCreatedEvent>>
     {

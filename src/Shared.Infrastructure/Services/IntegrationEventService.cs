@@ -21,8 +21,6 @@ namespace Shared.IntegrationEvents.Services
         {
             _logger.LogInformation("Publishing integration event. Event - {event}", integrationEvent.GetType().Name);
             await _mediator.Publish(GetNotificationCorrespondingToIntegrationEvent(integrationEvent));
-
-            throw new NotImplementedException();
         }
 
         private INotification GetNotificationCorrespondingToIntegrationEvent(IntegrationEvent integrationEvent)

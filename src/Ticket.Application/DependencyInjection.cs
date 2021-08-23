@@ -1,9 +1,8 @@
-﻿using AutoMapper;
-using FluentValidation;
+﻿using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using Modules.Ticket.Application.Mappings;
 using System.Reflection;
-using Todolist.Application.Mappings;
 
 namespace Modules.Ticket.Application
 {

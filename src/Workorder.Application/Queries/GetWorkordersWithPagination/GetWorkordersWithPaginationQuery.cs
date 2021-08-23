@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MediatR;
-using Modules.Todolist.Application.Queries.GetTodos;
 using Modules.Workorder.Application.Interfaces;
 using Shared.Application.Mappings;
 using Shared.Application.Models;
@@ -9,7 +8,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Modules.Workorder.Application.Queries.GetTodoItemsWithPagination
+namespace Modules.Workorder.Application.Queries
 {
     public class GetWorkordersWithPaginationQuery : IRequest<PaginatedList<WorkorderDto>>
     {

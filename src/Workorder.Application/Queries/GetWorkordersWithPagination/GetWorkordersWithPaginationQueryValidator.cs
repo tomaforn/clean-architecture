@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Modules.Workorder.Application.Queries.GetTodoItemsWithPagination
+namespace Modules.Workorder.Application.Queries
 {
     public class GetWorkordersWithPaginationQueryValidator : AbstractValidator<GetWorkordersWithPaginationQuery>
     {

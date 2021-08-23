@@ -6,7 +6,7 @@ using Shared.Application.Models;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Modules.Workorder.Application.TodoItems.EventHandlers
+namespace Modules.Workorder.Application.EventHandlers
 {
     public class PublishIntegrationEventWhenWorkorderIsClosed : INotificationHandler<DomainEventNotification<WorkorderClosedEvent>>
     {

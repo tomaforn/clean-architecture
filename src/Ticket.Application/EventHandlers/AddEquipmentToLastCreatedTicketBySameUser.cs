@@ -1,15 +1,14 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
+using Modules.Equipment.IntegrationEvents.Events;
 using Modules.Ticket.Application.Commands;
 using Modules.Ticket.Application.Interfaces;
-using Modules.Ticket.IntegrationEvents.Events;
 using Shared.Application.Models;
-using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Modules.Workorder.Application.TodoItems.EventHandlers
+namespace Modules.Ticket.Application.EventHandlers
 {
     public class AddEquipmentToLastCreatedTicketBySameUser : INotificationHandler<IntegrationEventNotification<EquipmentCreatedEvent>>
     {

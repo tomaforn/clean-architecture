@@ -1,6 +1,6 @@
 ﻿using Shared.IntegrationEvents;
 
-namespace Modules.Ticket.IntegrationEvents.Events
+namespace Modules.Equipment.IntegrationEvents.Events
 {
     public class EquipmentCreatedEvent : IntegrationEvent
     {
