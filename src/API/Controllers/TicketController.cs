@@ -16,7 +16,7 @@ namespace API.Controllers
         }
 
         [HttpPut("[action]")]
-        public async Task<ActionResult<Unit>> AddEquipment(AddEquipmentToTicketCommand command)
+        public async Task<ActionResult<int>> AddEquipment(AddEquipmentToTicketCommand command)
         {
             return await Mediator.Send(command);
         }

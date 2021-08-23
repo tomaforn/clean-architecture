@@ -18,15 +18,13 @@ namespace Modules.Ticket.Application.TodoItems.EventHandlers
             _logger = logger;
             _integrationEventService = integrationEventService;
         }
-        public Task Handle(DomainEventNotification<EquipmentScrappedEvent> notification, CancellationToken cancellationToken)
+        public async Task Handle(DomainEventNotification<EquipmentScrappedEvent> notification, CancellationToken cancellationToken)
         {
             var domainEvent = notification.DomainEvent;
             _logger.LogInformation($"Event: {domainEvent.GetType().Name} handled by {this.GetType().Name} ");
 
             var scrappedEvent = new IntegrationEvents.Events.EquipmentScrappedEvent(domainEvent.Item.Id, domainEvent.Item.LastModifiedBy);
-            _integrationEventService.Publish(scrappedEvent);
-
-            return Task.CompletedTask;            
+            await _integrationEventService.Publish(scrappedEvent);
         }
     }
 }

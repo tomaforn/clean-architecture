@@ -328,11 +328,11 @@ namespace API.Client
         System.Threading.Tasks.Task<int> CreateAsync(CreateTicketCommand command, System.Threading.CancellationToken cancellationToken);
     
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<Unit> AddEquipmentAsync(AddEquipmentToTicketCommand command);
+        System.Threading.Tasks.Task<int> AddEquipmentAsync(AddEquipmentToTicketCommand command);
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<Unit> AddEquipmentAsync(AddEquipmentToTicketCommand command, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<int> AddEquipmentAsync(AddEquipmentToTicketCommand command, System.Threading.CancellationToken cancellationToken);
     
     }
     
@@ -442,14 +442,14 @@ namespace API.Client
         }
     
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<Unit> AddEquipmentAsync(AddEquipmentToTicketCommand command)
+        public System.Threading.Tasks.Task<int> AddEquipmentAsync(AddEquipmentToTicketCommand command)
         {
             return AddEquipmentAsync(command, System.Threading.CancellationToken.None);
         }
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<Unit> AddEquipmentAsync(AddEquipmentToTicketCommand command, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<int> AddEquipmentAsync(AddEquipmentToTicketCommand command, System.Threading.CancellationToken cancellationToken)
         {
             if (command == null)
                 throw new System.ArgumentNullException("command");
@@ -492,7 +492,7 @@ namespace API.Client
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<Unit>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<int>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -1973,13 +1973,6 @@ namespace API.Client
         [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Name { get; set; }
     
-    
-    }
-    
-    /// <summary>Represents a void type, since Void is not a valid return type in C#.</summary>
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.5.2.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class Unit 
-    {
     
     }
     

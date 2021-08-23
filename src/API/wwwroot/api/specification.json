@@ -144,7 +144,8 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Unit"
+                  "type": "integer",
+                  "format": "int32"
                 }
               }
             }
@@ -625,11 +626,6 @@
             "nullable": true
           }
         }
-      },
-      "Unit": {
-        "type": "object",
-        "description": "Represents a void type, since Void is not a valid return type in C#.",
-        "additionalProperties": false
       },
       "AddEquipmentToTicketCommand": {
         "type": "object",

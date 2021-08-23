@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace Modules.Ticket.Application.Commands
 {
-    public class AddEquipmentToTicketCommand : IRequest<Unit>
+    public class AddEquipmentToTicketCommand : IRequest<int>
     {
         public int TicketId { get; set; }
         public int EquipmentId { get; set; }
     }
 
-    public class AddEquipmentToTicketCommandHandler : IRequestHandler<AddEquipmentToTicketCommand, Unit>
+    public class AddEquipmentToTicketCommandHandler : IRequestHandler<AddEquipmentToTicketCommand,int>
     {
         private readonly ITicketDbContext _context;
 
@@ -22,7 +22,7 @@ namespace Modules.Ticket.Application.Commands
             _context = context;
         }
 
-        public async Task<Unit> Handle(AddEquipmentToTicketCommand request, CancellationToken cancellationToken)
+        public async Task<int> Handle(AddEquipmentToTicketCommand request, CancellationToken cancellationToken)
         {
             var ticket = await _context.Tickets.FindAsync(request.TicketId);
             if(ticket == null)
@@ -30,13 +30,13 @@ namespace Modules.Ticket.Application.Commands
 
             var entity = new Domain.Entities.Equipment
             {
-                Id = request.EquipmentId,
+                EquipmentId = request.EquipmentId,
                 Ticket = ticket
             };
 
             _context.Equipments.Add(entity);
-            await _context.SaveChangesAsync(cancellationToken);
-            return Unit.Value;
+            return await _context.SaveChangesAsync(cancellationToken);            
         }
+
     }
 }
