@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Server;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading;
@@ -12,7 +11,8 @@ using System.Threading.Tasks;
 
 namespace BlazorUI.Authentication
 {
-    public class BlazorServerAuthState : RevalidatingServerAuthenticationStateProvider
+    public class BlazorServerAuthState
+         : RevalidatingServerAuthenticationStateProvider
     {
         private readonly BlazorServerAuthStateCache Cache;
         private readonly IHttpClientFactory httpClientFactory;
@@ -30,9 +30,10 @@ namespace BlazorUI.Authentication
             OidcDiscoveryCache = discoveryCache;
         }
 
-        protected override TimeSpan RevalidationInterval => TimeSpan.FromSeconds(60*5); // TODO read from config
+        protected override TimeSpan RevalidationInterval
+            => TimeSpan.FromSeconds(10); // TODO read from config
 
-        protected async override Task<bool> ValidateAuthenticationStateAsync(AuthenticationState authenticationState, CancellationToken cancellationToken)
+        protected override async Task<bool> ValidateAuthenticationStateAsync(AuthenticationState authenticationState, CancellationToken cancellationToken)
         {
             var sid =
                 authenticationState.User.Claims
@@ -40,37 +41,63 @@ namespace BlazorUI.Authentication
                 .Select(c => c.Value)
                 .FirstOrDefault();
 
+            var name =
+                authenticationState.User.Claims
+                .Where(c => c.Type.Equals("name"))
+                .Select(c => c.Value)
+                .FirstOrDefault() ?? string.Empty;
+            System.Diagnostics.Debug.WriteLine($"\nValidate: {name} / {sid}");
+
             if (sid != null && Cache.HasSubjectId(sid))
             {
                 var data = Cache.Get(sid);
+
                 if (DateTimeOffset.UtcNow >= data.Expiration)
                 {
+                    System.Diagnostics.Debug.WriteLine($"*** EXPIRED ***");
                     Cache.Remove(sid);
                     return false;
                 }
+
+                System.Diagnostics.Debug.WriteLine($"Now UTC: {DateTimeOffset.UtcNow.ToString("o")}");
+                System.Diagnostics.Debug.WriteLine($"Refresh: {data.RefreshAt.ToString("o")}");
+
+                // part 3
                 if (data.RefreshAt < DateTimeOffset.UtcNow) await RefreshAccessToken(data);
             }
-            return false;
+            else
+            {
+                System.Diagnostics.Debug.WriteLine($"(not in cache)");
+            }
+
+            return true;
         }
+
+        // part 3
         private async Task RefreshAccessToken(TokenProvider data)
         {
+            System.Diagnostics.Debug.WriteLine("Refreshing API access token:");
+
             var client = httpClientFactory.CreateClient();
             var disco = await OidcDiscoveryCache.GetAsync();
             if (disco.IsError) return;
+            System.Diagnostics.Debug.WriteLine("...discovery complete");
 
             var tokenResponse = await client.RequestRefreshTokenAsync(
                 new RefreshTokenRequest
                 {
                     Address = disco.TokenEndpoint,
-                    ClientId = "https://localhost:5001",
+                    ClientId = "blazor",
                     ClientSecret = "secret",
                     RefreshToken = data.RefreshToken
                 });
             if (tokenResponse.IsError) return;
+            System.Diagnostics.Debug.WriteLine("...refresh complete");
 
             data.AccessToken = tokenResponse.AccessToken;
             data.RefreshToken = tokenResponse.RefreshToken;
             data.RefreshAt = DateTimeOffset.UtcNow + TimeSpan.FromSeconds(tokenResponse.ExpiresIn / 2);
+            System.Diagnostics.Debug.WriteLine("...auth cache updated.");
         }
     }
 }

@@ -18,7 +18,9 @@
         <Found Context="routeData">
             <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
                 <NotAuthorized>
-                    @{ NavManager.NavigateTo("/Logoff", true); }
+                    @{
+                        NavManager.NavigateTo("/Logout", true);
+                    }
                 </NotAuthorized>
                 <Authorizing>
                     <h1>Authentication in progress</h1>

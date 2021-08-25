@@ -56,6 +56,7 @@ namespace IdentityServerAspNetIdentity
                     PostLogoutRedirectUris = { "https://localhost:44353/signout-callback-oidc" },
 
                     AllowOfflineAccess = true,
+                    AccessTokenLifetime = 30,
 
                     AllowedScopes = new List<string>
                     {

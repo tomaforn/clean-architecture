@@ -5,10 +5,11 @@ using Modules.User.Application.Shared.Interfaces;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Modules.Todolist.Application.Interfaces;
 
 namespace Shared.Infrastructure.Persistence
 {
-    public abstract class DbContextBase : DbContext
+    public abstract class DbContextBase : DbContext, ICommonDbContext
     {
         private readonly ICurrentUserService _currentUserService;
         private readonly IDateTime _dateTime;

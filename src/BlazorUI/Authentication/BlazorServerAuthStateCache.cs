@@ -1,9 +1,6 @@
 ﻿using API.Client;
 using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BlazorUI.Authentication
 {
@@ -39,6 +36,7 @@ namespace BlazorUI.Authentication
 
         public void Remove(string subjectId)
         {
+            System.Diagnostics.Debug.WriteLine($"Removing sid: {subjectId}");
             Cache.TryRemove(subjectId, out _);
         }
     }
